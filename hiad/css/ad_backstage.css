@@ -1,0 +1,266 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{  padding:0px; margin:0px;}
+body{font-family:"宋体"; font-size:12px; color:#4d4d4d; background:#eee;}
+/* ~~ 元素/标签选择器 ~~ */
+ul, ol, dl { /* 由于浏览器之间的差异，最佳做法是在列表中将填充和边距都设置为零。为了保持一致，您可以在此处指定需要的数值，也可以在列表所包含的列表项（LI、DT 和 DD）中指定需要的数值。请注意，除非编写一个更为具体的选择器，否则您在此处进行的设置将会层叠到 .cj_nav 列表。 */
+	padding: 0;
+	margin: 0;
+	list-style:none;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* 删除上边距可以解决边距会超出其包含的 div 的问题。剩余的下边距可以使 div 与后面的任何元素保持一定距离。 */
+	/*padding-right: 15px;
+	padding-left: 15px;*/ /* 向 div 内的元素侧边（而不是 div 自身）添加填充可避免使用任何方框模型数学。此外，也可将具有侧边填充的嵌套 div 用作替代方法。 */
+}
+a img { /* 此选择器将删除某些浏览器中显示在图像周围的默认蓝色边框（当该图像包含在链接中时） */
+	border: none;
+}
+a{ text-decoration:none; margin:0px; padding:0;}
+.pd_lf{ padding-left:20px;}
+.font18{ font-family:"微软雅黑"; font-size:18px; }
+.font12{ font-family:"宋体"; font-size:12px; color:#4d4d4d;}
+.mglf50{ margin-left:50px;}
+
+.msg{ background:url(../images/12035_bg.png) no-repeat; float:right; margin:20px; padding:6px 28px; width:120px; 
+display: inline-block; overflow:hidden; zoom:1; } 
+.msg a{color:#fff;font-size:16px; font-family:"微软雅黑";}
+.clearboth{ clear:both;}
+.bgline{padding:5px 0px;border-bottom:1px solid #d7d7d7; -moz-border-bottom-colors: #d7d7d7 #fff;-webkit-box-shadow: 0 2px 1px #fff;-moz-box-shadow: 0 2px 1px #fff;box-shadow: 0 2px 1px #fff;}
+.rightline{border-right:1px solid #d7d7d7; -moz-border-right-colors: #d7d7d7 #fff; }
+/*头部设置*/
+.loginBar{height:65px; padding-top:20px;}
+.loginBar .logo{ float:left; margin-left:35px;}
+.loginBar .login{ float:right; margin-right:35px;}
+.loginBar .login dl{ margin:0 35px; float:left;}
+.loginBar .login dl{ display:block; margin-top:8px; text-align:center;}
+.loginBar .login dl dd a{color:#4e5458; font-family: "微软雅黑"; font-size: 14px; }
+/*
+.nav{ background:url(../images/nav_bg.png) repeat-x; height:38px;padding-left:40px;padding-top:15px;}
+.nav a{ font-family:"微软雅黑"; font-size:18px; color:#555; line-height:18px; padding-bottom:18px; margin-right:60px; }
+.nav a.now{ color:#fff; background:url(../images/subnav_btbg.gif) bottom no-repeat; }
+.subnav{ background:url(../images/subnav_bg.png) repeat-x; height:42px;border-top:2px #2174c0 solid;padding-left:20px; } 
+.subnav li{ margin:0px; padding:0px;float:left; padding-right:10px; padding-top:10px;}
+.subnav li a{ color:#fff; font-size:14px;width:120px; height:25px;padding:8px 30px;}
+.subnav li.now a{background:#4d90cd no-repeat;  }
+*/
+
+/*目录*/
+.content {
+	
+	padding:0px 0 0 0;
+
+	display:block; 
+	background:#eee;
+}
+/* ~~ 此分组的选择器为 .content 区域中的列表提供了空间 ~~ */
+.content ul, .content ol { 
+	 /* 此填充反映上述标题和段落规则中的右填充。填充放置于下方可用于间隔列表中其它元素，置于左侧可用于创建缩进。您可以根据需要进行调整。 */
+}
+.status,.status a{font-size:16px; color:#4d4d4d; font-weight:bold;}
+.status{ height:33px; line-height:33px; padding-left:30px;}
+.status a{  padding: 0 5px; text-decoration:none;}
+
+
+/*首页*/
+.banner{ margin:10px auto 0px; width:1060px; }
+.adcont{ width:1060px; margin:0 auto;}
+.adcont dl{ float:left; width:49%;  padding-top:10px;}
+.adcont dt{ float:left; margin-right:10px;width:80px;}
+.adcont dt img{ padding:1px; border:#eee 1px solid;  }
+.adcont dd{ float:left;}
+.adcont dd a{font-size:18px; font-family:"微软雅黑"; color:#646464; }
+.adcont dd ul{ margin:5px;}
+.adcont dd ul li{ list-style:square; margin-left:15px;}
+.adcont dd ul li a{ font-size:12px; line-height:24px; }
+
+
+/*账号信息*/
+.left{ float:left; height:auto;width:15%; background:#fff; }
+.left .zhlist{ background:#fff; height:auto; }
+.right{ float:left;width:85%;position:relative;}
+.menu li{  margin:0px 0; height:40px; line-height:40px; }
+.menu li a{color:#333; line-height:40px; display:block;padding:0px 25px;}
+.menu li b{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background: url(../images/menu_tree.png) no-repeat;
+    vertical-align: middle;
+    background-position: -35px 0;
+}
+.menu li.now{background:url(../images/menu_x.png) repeat-x;}
+.menu li.now b{background-position: -35px -15px;}
+
+
+/*广告位*/
+.sousuo{ border:1px solid #999999; margin:10px; position:relative; overflow:hidden; zoom:1;}
+.sousuo input{ border:none; display:block; width:100%;}
+.sousuo a{ position:absolute; right:0;}
+.weblist{background:#50a6e8 url(../images/menu_x.png) repeat-x; margin:0px 0; padding:0px 35px; overflow:hidden; zoom:1;line-height:40px; }
+.weblist a{color:#fff;}
+
+.rizhilist{ background:url(../images/rizhi_bg.png) repeat-x; width:auto; height:31px; line-height:30px; padding-left:30px;}
+.rizhilist span{ margin-right:60px;cursor:pointer;}
+.rizhilist span.now{ background:#dfedf6; width:50px; height:30px; padding:6px 20px; border:1px solid #eee; color:#47adf7; }
+.rizhilist span.kan{ float:right;}
+.right .lakai{ position:absolute; top:300px;  left:0px; width:17px; height:66px;}
+.right .hes{ position:absolute; top:300px;  left:0px;width:17px; height:66px;}
+.right .hes p{ width:20px;}
+.right .add{ color:#000; padding:10px 20px; font-weight:bold;}
+.right .add i{ font-style:normal; font-weight:normal; }
+.right .add b{ color:#c9c9c9; margin:0 5px;}
+
+.right .add select{ width:120px; height:20px;margin:10px;}
+.ss{background:url(../images/5020_bg.png); line-height:12px; border:0px; padding:1px 10px 1px 15px;margin-left:2px; font-size:12px; cursor:pointer;}
+.ss a{color:#FFFFFF;}
+.webadd{ padding-left:3%; padding-top:1%;}
+.webadd tr{ text-align:left;}
+.webadd select{ width:120px; height:20px;}
+.webadd a.cicun{ color:#54bfeb; margin-left:5px; text-decoration:underline;}
+.webadd a.suosu{ color:#333; background:url(../images/croll.gif) no-repeat 2px;  padding-left:15px; display:inline-block;margin-left:5px;}
+.webadd i{ width:15px; height:15px; }
+.add label{ font-weight:normal; margin-right:10px;} 
+.add input{ margin-left:10px; }
+.add a{ margin-right:5px;}
+.hicreat a,.hicreat p{ color:#4d4d4d; margin-top:10px;}
+.hicreat a span{ color:#54bfeb; cursor:pointer;}
+#material_table tr th{width: 125px;}
+
+
+/*新建站点*/
+.new_web{font-size:12px;}
+/*.new_web textarea,.new_web input,.new_web select{ border-top:1px #5794bf solid; border-bottom:1px #c7e2f1 solid; border-right:1px #cbe0e3 solid; border-left:1px #c8dbe9 solid; border-style:solid;}*/
+.new_web h3{color:#e2eafd; font-size:18px; background:url(../images/controls_titlebg.png) repeat-x; margin-bottom:10px;}
+.new_web h3 a{ float:right; padding:5px;}
+.new_web input{/*visibility:hidden;*/ }
+.new_web input.wh120{  width:120px; height:15px;}
+.new_web select{width:120px; height:20px;}
+.new_web ul{}
+.new_web ol{ margin-left:20px;}
+.new_web a{ margin-left:20px;}
+
+.code{ border:1px solid #9ecae8; width:70%; background:#fff; margin:10px 20px; padding:2px;}
+.code1{ background:#eff7f9;border:1px solid #99c0d9; padding:10px;border:1px solid #9ecae8;}
+.code textarea{ width:660px; height:90px; border:1px solid #99c0d9;}
+.code2{padding:10px;}
+.code2 a{ color:#5890BE;}
+.code2 b a{ text-decoration:underline;}
+
+
+
+/*统计*/
+.self_list{ font-size:12px; font-weight: bold; padding:20px;}
+.self_list span{ margin:5px;}
+.self_list span.now{ color:#3399CC;}
+.list_tu{ margin:10px auto; width:1000px;}
+.baogao{ color:#fff; font-size:16px; float: none;}  
+.radio{ margin-left:15px;}
+
+.gugao_its{  margin-top:10px;}
+.gugao_its span{ float:none; font-size:16px; color:#fff;}
+
+/*菜单*/
+/* ~~ 导航列表样式（如果选择使用预先创建的 Spry 等弹出菜单，则可以删除此样式） ~~ */
+ul.cj_nav {
+	padding:10px 0 0 0;
+	 /* 这将删除列表标记 */
+}
+ul.cj_nav li{
+	   /* 这将创建按钮间隔 */
+	   padding-left:10px;
+	   /*padding-bottom:10px;*/
+	   margin-bottom:5px;
+	   list-style:none;
+	   cursor:pointer;
+	/*background:url(../images/himilist1_bg.png) no-repeat;*/
+}
+ul.cj_nav li ul{ display:none;}
+ul.cj_nav li,ul.cj_nav a,ul.cj_nav label{
+line-height:20px;
+}
+
+ul.cj_nav a, ul.cj_nav a:visited{ /* 对这些选择器进行分组可确保链接即使在访问之后也能保持其按钮外观 */
+	/*padding-left:5px;*/
+	/*display: block;*/ /* 这将为链接赋予块属性，使其填满包含它的整个 LI。这样，整个区域都可以响应鼠标单击操作。 */
+	/*width: 160px;*/ /*此宽度使整个按钮在 IE6 中可单击。如果您不需要支持 IE6，可以删除它。请用侧栏容器的宽度减去此链接的填充来计算正确的宽度。 */
+	text-decoration: none;
+	line-height:20px;
+/*	background:url(../images/toollist.png) no-repeat;*/
+	color:#000;
+	font-size:12px;
+	font-family:"微软雅黑","宋体";
+}
+ul.cj_nav a:hover, ul.cj_nav a:active, ul.cj_nav a:focus { /* 这将更改鼠标和键盘导航的背景和文本颜色 */
+	color: #333;
+}
+/*ul.cj_nav li.now{background:url(../images/himilist_bg.png) no-repeat;}*/
+
+
+
+.navtit{overflow:hidden; zoom:1; display:inline-block; padding-right:8px; border:1px solid Transparent; vertical-align:middle;}
+* html .navtit{ display:inline;}
+*+html .navtit{ display:inline;}
+.navtit label{vertical-align:middle;}
+.navtit label input{vertical-align:middle; border:0px;}
+.navtit:hover b{}
+.navtit:hover{}
+ul.cj_nav li.now>.navtit{
+	border: 1px solid #83AADA;
+	background-color: #E7F7FE;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+
+ul.cj_nav li div b{
+	margin-left:5px;
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	background: url(../images/nav_tree.png) no-repeat;
+	vertical-align: middle;
+	background-position: -35px 0;
+}
+
+ul.cj_nav li.now ul{
+	/*display:block;*/
+}
+ul.cj_nav ul li{ margin-bottom:0px; padding-bottom:5px;}
+ul.cj_nav ul li:last-child{}
+
+/*ul.cj_nav ul li div b{background-position: -35px -15px;}*/
+/*ul.cj_nav li div b:hover,ul.cj_nav li:hover div b{background-position: -35px -15px;}*/
+ul.cj_nav li div.navtit:hover b{background-position: -35px -15px;}
+ul.cj_nav li div b.more:hover,ul.cj_nav li div.navtit:hover b.more{
+	background-position: 0px -15px;
+}
+ul.cj_nav li div b.on:hover,ul.cj_nav li div.navtit:hover b.on{
+	background-position: -17px -15px !important;
+}
+
+
+ul.cj_nav li.now>div>b.more{
+	/*background-position: -15px 0;*/
+}
+
+ul.cj_nav li div b.more{
+display: inline-block;
+height: 15px;
+width: 15px;
+background: url(../images/nav_tree.png) no-repeat;
+vertical-align: middle;
+}
+
+ul.cj_nav li div b.on{
+   background-position: -17px 0;
+}
+
+.cj_nav lable{ vertical-align: middle;}
+
+
+#hideleft{ position: absolute; top:300px; display:block; width:16px; height:64px; z-index:1; overflow:hidden; cursor:pointer;}
+.l_s{background:url(../images/left_right.png) left top no-repeat;}
+.l_h{background:url(../images/left_right.png) -16px top no-repeat; left:0px;}

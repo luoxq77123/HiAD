@@ -1,0 +1,235 @@
+/*
+* HiAD 用户前台
+* date : 2012-08-06
+* Author: xiaocong
+* Email:xiepinxi@gmail.com
+*/
+@charset "utf-8";
+*{
+font-family:"Trebuchet MS",verdana,helvetica,arial,sans-serif;
+margin:0;
+padding:0;
+}
+
+body {
+	/*font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;*/
+	margin: 0;
+	padding: 0;
+	background:#eee;
+}
+
+/* ~~ 元素/标签选择器 ~~ */
+ul, ol, dl { /* 由于浏览器之间的差异，最佳做法是在列表中将填充和边距都设置为零。为了保持一致，您可以在此处指定需要的数值，也可以在列表所包含的列表项（LI、DT 和 DD）中指定需要的数值。请注意，除非编写一个更为具体的选择器，否则您在此处进行的设置将会层叠到 .nav 列表。 */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* 删除上边距可以解决边距会超出其包含的 div 的问题。剩余的下边距可以使 div 与后面的任何元素保持一定距离。 */
+	/*padding-right: 15px;
+	padding-left: 15px;*/ /* 向 div 内的元素侧边（而不是 div 自身）添加填充可避免使用任何方框模型数学。此外，也可将具有侧边填充的嵌套 div 用作替代方法。 */
+}
+a img { /* 此选择器将删除某些浏览器中显示在图像周围的默认蓝色边框（当该图像包含在链接中时） */
+	border: none;
+}
+.mr_20{ margin-right:20px;}
+.ml_40{ margin-left:40px;}
+.mr_40{ margin-right:40px;}
+.mb_40{ margin-bottom:40px;}
+.pb_20{ padding-bottom:20px;}
+.pb_10{ padding-bottom:10px;}
+.pl_10{ padding-left:10px;}
+.pl_20{ padding-left:20px;}
+.pl_30{ padding-left:30px;}
+.pl_35{ padding-left:35px;}
+.pt_35{padding-top:30px;}
+.tx_l{ text-align:left;}
+.tx_r{ text-align:right;}
+.tx_c{ text-align:center;}
+.cbox_style{vertical-align:middle; cursor:pointer;}
+.cbox_style input{ border:0px;vertical-align:middle;}
+.cbox_style span{ vertical-align:middle; cursor:pointer; }
+.cl_56a{ color:#56a8e8;}
+.clear{ clear:both;}
+.hand{ cursor:pointer;}
+.ofh{ overflow:hidden; zoom:1;}
+.fr{ float:right;}
+.fl{ float:left;}
+.hiden{display:none;}
+
+/*通用黑白双色分割线*/
+.nptpboder,.tpboder{border-bottom:1px solid #d7d7d7; -moz-border-bottom-colors: #d7d7d7 #fff;-webkit-box-shadow: 0 2px 1px #fff;-moz-box-shadow: 0 2px 1px #fff;box-shadow: 0 2px 1px #fff;}
+.adbox{ padding-top:10px; padding-bottom:10px; overflow:hidden; zoom:1;}
+/**/
+/*通用按钮*/
+.iscbut,.iscbut span{ text-align:center; color:#fff; font-size:16px; line-height:36px; text-decoration:none; font-family:"微软雅黑";}
+.iscbut{width:144px; display: inline-block; overflow:hidden; zoom:1; height:36px; background:url(../images/button_big.png) 0px 0px no-repeat; border:0px; cursor:pointer;}
+.cbut_jia span{ display: inline-block; overflow:hidden; zoom:1; text-align:left; width:100px; padding-left:44px; background:url(../images/button_big.png) -150px 0px no-repeat; }
+
+.iscbut_2{width:82px; display: inline-block; overflow:hidden; zoom:1; background:url(../images/button_big.png) 0 -71px no-repeat; text-align:center; color:#fff; font-size:16px; line-height:26px; height:26px; overflow:hidden; text-decoration:none; font-family:"微软雅黑"; border:0px; cursor:pointer; vertical-align:middle;}
+.iscbut_3{background:url(../images/anniu_bg_2.png) no-repeat;}
+.iscbut_4{ padding: 0 20px; line-height:20px; height:20px;background: #55B6EE;vertical-align: middle; color:#fff; font-size:14px; cursor:pointer;}
+
+
+/*alertbox*/
+.alertbox{ width:300px; height:160px; border:5px solid #39a9d9;background-color: white; line-height:28px; text-align:center;padding:10px;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+position: absolute;
+left: 40%;
+top: 40%;
+z-index: 9999;}
+.alertbox a{ color:#5794BF; font-size:14px; text-align:center; }
+
+
+/* ~~ 站点链接的样式必须保持此顺序，包括用于创建悬停效果的选择器组在内。 ~~ */
+
+
+/* ~~ 此固定宽度容器包含其它 div ~~ */
+.container{
+	background: #eee;
+	margin: 0 auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐*/
+	overflow:hidden;
+}
+
+/* ~~ 标题未指定宽度。它将扩展到布局的完整宽度。标题包含一个图像占位符，该占位符应替换为您自己的链接徽标 ~~ */
+
+#header_top{ height:90px; overflow:hidden; zoom:1;}
+#header_top h1{ float:left; overflow:hidden; zoom:1; padding-top:20px; padding-left:30px;}
+
+.top_nav{ padding-top:20px;}
+.top_nav li{ float:left; overflow:hidden; text-align:center; zoom:1; padding-right:60px; padding-left:10px;}
+.top_nav li a{ display:inline-block; overflow:hidden; text-align:center; text-decoration:none; zoom:1; padding-top:32px; line-height:30px; font-size:16px; font-family:"微软雅黑"; color:#777;}
+.top_nav li a:hover{ color:#000;}
+.nav_wel a{ background:url(../images/ico_top.png) center 0px no-repeat;}
+.nav_cp a{background:url(../images/ico_top.png) center -132px no-repeat;}
+.nav_quit a{background:url(../images/ico_top.png) center -264px no-repeat;}
+
+/*主导航*/
+.nav,.nav ul,.nav ul li,.nav ul li a{ font-size:20px; color:#333; text-decoration:none;font-family:"微软雅黑";}
+.nav{ min-height:52px; overflow:hidden; zoom:1;line-height:52px; background:#56a8e9 url(../images/nav_bg.png) repeat-x;}
+.nav ul{}
+.nav ul li{float:left; overflow:hidden; zoom:1; padding-left:30px; padding-right:30px;}
+.nav ul li a:hover{ color:#fff;}
+.nav ul li a.now,.nav ul li.now,.nav ul li.now a{color:#fff;}
+.nav ul li a.show_now,.nav ul li.show_now,.nav ul li.show_now a{color:#fff;}
+.nav ul li.now{background:url(../images/ico_shang.png) center bottom no-repeat;}
+/*子导航*/
+.nav_child,.nav_child ul,.nav_child ul li,.nav_child ul li a,.nav_child a,.nav_child li,.nav_child ul a{ color:#fff; font-size:14px;font-family:"微软雅黑"; text-decoration:none; line-height:28px;}
+.nav_child{ overflow:hidden;zoom:1; padding:6px 0px; background:#2174b0;border-bottom:1px solid #fff;}
+.nav_child ul{}
+.nav_child ul li{ float:left; overflow:hidden; zoom:1; padding-left:5px; padding-right:3px;}
+.nav_child ul li a{ display:inline-block; padding: 0 18px;border:#2174b0 solid 1px;}
+.nav_child ul li a.now,.nav_child ul li.now a{font-size:16px;background:#4e90cb;
+    border:#4d8eb2 solid 1px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.nav_child ul li a:hover{ font-size:14px; color:#333;}
+.nav_child ul li.now a:hover,.nav_child ul li a.now:hover{ font-size:16px;}
+
+#pt{line-height:38px;}
+#pt .z,#pt .z a{color:#454545; font-weight:bold; font-size:16px; line-height:38px; text-decoration:none;}
+#pt .z{}
+
+.lxrbox{}
+.fz a{
+	color:#0CF;
+	font-size:12px;   text-decoration:none;font-family:"微软雅黑"; margin-left:10px; margin-right:10px;
+	}
+.lxr_sx,.lxr_sx a{ font-size:12px;  color:#555; text-decoration:none;font-family:"微软雅黑"; margin-left:10px; margin-right:10px;
+}
+.lxr_sx{
+	float:left;
+	}
+
+
+.fr mr_40{
+	float:right;}
+.lxr_sx a.now{ color:#4e9fe0;}
+.fz{
+	float:left;  
+	margin-bottom:-275px;
+	display:inline;}
+.fz a.now{color:#4e9fe0;}
+
+.fr mr_40{
+	float:right; margin-left:950px; display:inline;}
+
+
+/*状态选择*/
+.shaixuan{ font-size:12px; color:#666;}
+.shaixuan select{ width:150px;}
+
+.sz_sc{ padding-right:30px;}
+
+/*功能按钮*/
+.butgn{ padding-left:25px; background: url(../images/ico_xx.png) 3px center no-repeat;}
+.butgn input{ cursor:pointer; line-height:18px; font-size:12px; padding-left:20px; padding-right:20px; border:2px solid #999; background:#fff;color:#000;
+    border-radius: 1px;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+}
+.nobutgn input{
+	border:2px solid #d9d9d9; background:#f7f7f7;color:#ddd;
+}
+
+/*表格*/
+.list_table{ width:100%;}
+.list_table tr{}
+.list_table tr:nth-child(odd){}
+.list_table tr:nth-child(even){ background:#dfedf7;}
+.list_table tr:hover{ background:#CFE2ED;}
+.list_table tr:first-child:hover{ background:#eee;}
+.list_table th{font-size:16px; font-weight:bold;}
+.list_table td{text-align:center; padding:6px; font-size:14px;border-bottom:1px solid #d7d7d7; -moz-border-bottom-colors: #d7d7d7 #fff;-webkit-box-shadow: 0 2px 1px #fff;-moz-box-shadow: 0 2px 1px #fff;box-shadow: 0 2px 1px #fff;}
+.list_table td a{ color:#458FCE;}
+/*分页*/
+
+/*分页*/
+.pagination{}
+  .pagination a{color:#3d3d3d; border:1px solid #eee; font-size:12px; text-decoration:none; font-family:Verdana, Arial, Helvetica, sans-serif;display:block; float:left;padding:0 6px 0 6px; height:20px; line-height:20px; margin:0 -4px 0 -4px;text-align:center;}
+  .pagination span{display:block; float:left;padding:0 6px 0 6px; height:20px; line-height:20px; margin:0 2px 0 2px;text-align:center;}
+  .pagination a:hover{ border:1px solid #3d3d3d; color:#111;}
+  .pagination .now{background:#4f4f4f;color:#fff;}
+  .pagination .now .prev, .pagination .current .next{color:#999;border-color:#999;background:#fff;}
+  .next a{margin-left: 8px;}
+  .current{background:#4f4f4f;color:#fff;}
+  
+.page_info{ font-size:12px; color:#4c4c4c; padding-right:30px;}
+.page_info select{ width:75px;}
+
+/**/
+.jsry{}
+.jsry p{ line-height:22px;}
+.jsry p label,.jsry p label input{vertical-align:middle;}
+.jsry p label{ padding-right:10px;}
+.jsry p label input{ margin-right:5px;}
+
+/*san_nav*/
+.san_nav{ background:url(../images/jb_bg.png) repeat-x; height:30px; padding-bottom:2px; border-bottom: 1px solid #d6d6d6;}
+.san_list{ line-height:24px; height:24px; padding-top:5px; overflow:hidden; zoom:1;}
+.san_list li{ padding-left:35px; float:left; }
+.san_list li a{ display:inline-block; padding:0 12px; overflow:hidden; zoom:1; color:#585858;}
+.san_list li a.now{ background:#dfedf0; border:1px solid #dae5e6; color:#46a6e3;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.tj_so{}
+.tj_so .lxr_sx{ line-height:36px;}
+
+.s_time{ position:relative;}
+.s_time input{ width:143px;}
+.s_time i{ position:absolute; right:0px; top:0px; zoom:1; cursor:pointer; width:21px; height:20px; display:inline-block; float:right; background:url(../images/button_big.png) 0 -100px no-repeat;}
+
+.tjshu{}
+.tjshu table{ text-align:center;}
+.tjshu th{ font-size:20px; font-weight:bold;}
+.tjshu td{ font-size:14px;}
+
+.zxl_tj{line-height:44px;}
+.zxl_tj label{ margin-right:30px; vertical-align:middle; cursor:pointer;}
+.zxl_tj label input{vertical-align:middle; margin-right:5px;}

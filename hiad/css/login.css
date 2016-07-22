@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document 
+* hiadms 广告管理系统登录页样式
+*/
+
+
+img{ border:0px;}
+.formkbg{width:630px; height:258px; padding-top:224px; padding-left:34px; padding-right:42px; padding-bottom:100px; background:url(../images/login_bg.jpg) no-repeat;margin-left:auto; margin-right:auto; }
+
+.topbanner{ width:260px; height:258px; float:left;}
+.topbanner a{ display:inline-block; margin-top:70px; margin-left:45px;}
+.topbanner img{ border:0px;}
+.formbg{width:315px; padding-left:50px; padding-top:35px; overflow:hidden; zoom:1;}
+.formbg form { width:320px;}
+.formbg form div{ display:block; overflow:hidden; zoom:1;}
+.formbg form label{display:block; float:left; overflow:hidden;color:#626262; font-size:16px; font-family:"微软雅黑"; width:60px; height:30px;  cursor:pointer;}
+.formbg form input{ overflow:hidden; float:left; line-height:29px; font-size:14px; font-weight:bold; color:#3399ea; background:#c7e5f4;
+border-top:1px #5794bf solid; border-bottom:1px #c7e2f1 solid; border-right:1px #cbe0e3 solid; border-left:1px #c8dbe9 solid;
+}
+.fname{ padding-bottom:20px;}
+.fname input{ height:28px; width:200px; border:0px;}
+.formleft{ float:left; margin-right:15px;}
+.fyzm{}
+.fyzm input{height:27px; width:115px; border:0px;}
+.fyzm img{}
+.fyzm span{height:27px; display:block; width:90px; padding-left:10px; float:left; overflow:hidden; zoom:1; line-height:27px; color:#3296e8; font-size:12px; cursor:pointer;}
+.formbg form div.ftjtp{ width:150px; height:50px; margin-top:20px; overflow:hidden; zoom:1; float:left; }
+.formbg form .ftjtp input,.ftjtp input{ border:0px;}
+
+#noie6{position: relative; top:0px; left:0px; text-align:center; padding-top:200px; font-size:20px;}
