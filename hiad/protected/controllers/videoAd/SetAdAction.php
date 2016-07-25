@@ -7,10 +7,8 @@ class SetAdAction extends CAction {
 
     public function run() {
         $user = Yii::app()->session['user'];
-
         // 获取处理动作
         $do = isset($_REQUEST['do']) ? $_REQUEST['do'] : "";
-
         // 保存广告设置
         if ('save' == $do) {
             $msg = $this->_saveTempAdData();
@@ -43,7 +41,7 @@ class SetAdAction extends CAction {
                 exit();
             }
         }
-
+        //create_ad_info
         // 查看选择广告
         $ad = array();
         $adInfo = Ad::model()->getAdSession();

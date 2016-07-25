@@ -33,7 +33,6 @@ class VideoPositionController extends BaseController {
             $position->createtime = time();
             $position->ad_type_id = 3;
             //设置站点广告位model场景
-
             if ($position->validate()) {
                 if ($position->save()) {
                     if ($position->ad_show_id == 8) { // 播放器

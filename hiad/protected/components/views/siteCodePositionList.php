@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody id="maincon1">
-                   <?php if($positions):?>
+        <?php if($positions):?>
 		<?php foreach($positions as $one):?>
            <tr class="biaoji_<?php echo $one['id'];?>" data="showtype_<?php echo $one['ad_show_id'];?>">
                 <td class="w1"><?php echo $one['name'];?></td>

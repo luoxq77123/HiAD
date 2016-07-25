@@ -20,7 +20,6 @@ class Oplog extends CComponent {
             $url = $_SERVER['REQUEST_URI'];
             $network = new Network;
             $ip = $network->getIP();
-
             $user = Yii::app()->session['user'];
             $oplog = new Oplogs('add');
             $oplog->aca_id = $acaList[$controller][$action];

@@ -7,7 +7,6 @@ class SetAdAction extends CAction {
 
     public function run() {
         $user = Yii::app()->session['user'];
-
         // 获取处理动作
         $do = isset($_REQUEST['do']) ? $_REQUEST['do'] : "";
 

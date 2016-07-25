@@ -10,7 +10,6 @@ class MaterialAppController extends BaseController {
      */
     public function actionList() {
         $user = Yii::app()->session['user'];
-
         $criteria = new CDbCriteria();
         $criteria->order = 'createtime desc';
         $criteria->select = 'id,name,material_type_id,status,material_size';
@@ -79,7 +78,6 @@ class MaterialAppController extends BaseController {
      * 添加客户端物料
      */
     public function actionAdd() {
-
         $material = new Material('add');
         $materialText = new MaterialAppText('add');
         $materialPic = new MaterialAppPic('add');
@@ -99,9 +97,7 @@ class MaterialAppController extends BaseController {
                     if ($materialText->validate()) {
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
-
                             $materialText->material_id = $material->attributes['id'];
-
                             $materialText->save();
                         }
                     }
@@ -118,9 +114,7 @@ class MaterialAppController extends BaseController {
                         }
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
-
                             $materialPic->material_id = $material->attributes['id'];
-
                             $materialPic->save();
                         }
                     }

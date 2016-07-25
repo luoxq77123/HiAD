@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 
 class VideoStatistics extends CActiveRecord {
     /**
@@ -17,27 +17,27 @@ class VideoStatistics extends CActiveRecord {
     }
 
     /**
-     * ¸ù¾Ý¹ã¸æÇëÇó ²åÈëÍ³¼Æ·Ö±í
+     * æ ¹æ®å¹¿å‘Šè¯·æ±‚ æ’å…¥ç»Ÿè®¡åˆ†è¡¨
      */
     public function addStatDetail($data) {
-        // »ñÈ¡¶©µ¥id
+        // èŽ·å–è®¢å•id
         $adData = Ad::model()->getOneById($data['ad_id']);
         $data['order_id'] = $adData->order_id;
         $orderData = Orders::model()->getOneById($data['order_id']);
-        // »ñÈ¡¿Í»§id
+        // èŽ·å–å®¢æˆ·id
         $data['client_id'] = ($orderData)? $orderData->client_company_id : 0;
-        // »ñÈ¡ÏúÊÛÈËÔ±id
+        // èŽ·å–é”€å”®äººå‘˜id
         $data['seller_id'] = ($orderData)? $orderData->salesman_id : 0;
-        // ´´½¨Í³¼Æ±í
+        // åˆ›å»ºç»Ÿè®¡è¡¨
         $this->createStatTable();
-        // ÉèÖÃÕ¹Ê¾»òÕßµã»÷ÊÕÈë
+        // è®¾ç½®å±•ç¤ºæˆ–è€…ç‚¹å‡»æ”¶å…¥
         $data['cost'] = $this->getRowCost($data['cost_mode'], $data['price']);
-        // Ìí¼ÓÍ³¼ÆÐÅÏ¢
+        // æ·»åŠ ç»Ÿè®¡ä¿¡æ¯
         $statData = $this->addSubStatData($data);
-        // Ìí¼ÓÎïÁÏÍ³¼ÆÐÅÏ¢
+        // æ·»åŠ ç‰©æ–™ç»Ÿè®¡ä¿¡æ¯
         VideoStatMate::model()->createStatTable();
         $this->addMaterialData($data, $statData);
-        // Èç¹û¹ã¸æ¼Æ·ÑÄ£Ê½ÊÇÕ¹ÏÖÇÒ¶©µ¥´æÔÚ Ôò¸üÐÂ¶©µ¥»°·Ñ
+        // å¦‚æžœå¹¿å‘Šè®¡è´¹æ¨¡å¼æ˜¯å±•çŽ°ä¸”è®¢å•å­˜åœ¨ åˆ™æ›´æ–°è®¢å•è¯è´¹
         if ($data['cost_mode']==2 && $data['order_id']>0 && $data['cost']>0) {
             Orders::model()->updateCostById($data['order_id'], $data['cost']);
         }
@@ -45,24 +45,24 @@ class VideoStatistics extends CActiveRecord {
     }
     
     /**
-     * Ìí¼Ó·Ö±íÍ³¼Æ Õë¶ÔHimiController¹ã¸æ»ñÈ¡Í³¼Æ£¬²»×öÎïÁÏÍ³¼Æ£¬µÈÎïÁÏÉ¸Ñ¡ºóÔÙ×÷Í³¼Æ
+     * æ·»åŠ åˆ†è¡¨ç»Ÿè®¡ é’ˆå¯¹HimiControllerå¹¿å‘ŠèŽ·å–ç»Ÿè®¡ï¼Œä¸åšç‰©æ–™ç»Ÿè®¡ï¼Œç­‰ç‰©æ–™ç­›é€‰åŽå†ä½œç»Ÿè®¡
      */
     public function addStatDetailForSite($data) {
-        // »ñÈ¡¶©µ¥id
+        // èŽ·å–è®¢å•id
         $adData = Ad::model()->getOneById($data['ad_id']);
         $data['order_id'] = $adData->order_id;
         $orderData = Orders::model()->getOneById($data['order_id']);
-        // »ñÈ¡¿Í»§id
+        // èŽ·å–å®¢æˆ·id
         $data['client_id'] = ($orderData)? $orderData->client_company_id : 0;
-        // »ñÈ¡ÏúÊÛÈËÔ±id
+        // èŽ·å–é”€å”®äººå‘˜id
         $data['seller_id'] = ($orderData)? $orderData->salesman_id : 0;
-        // ´´½¨Í³¼Æ±í
+        // åˆ›å»ºç»Ÿè®¡è¡¨
         $this->createStatTable();
-        // ÉèÖÃÕ¹Ê¾»òÕßµã»÷ÊÕÈë
+        // è®¾ç½®å±•ç¤ºæˆ–è€…ç‚¹å‡»æ”¶å…¥
         $data['cost'] = $this->getRowCost($data['cost_mode'], $data['price']);
-        // Ìí¼ÓÍ³¼ÆÐÅÏ¢
+        // æ·»åŠ ç»Ÿè®¡ä¿¡æ¯
         $statData = $this->addSubStatData($data);
-        // Èç¹û¹ã¸æ¼Æ·ÑÄ£Ê½ÊÇÕ¹ÏÖÇÒ¶©µ¥´æÔÚ Ôò¸üÐÂ¶©µ¥»°·Ñ
+        // å¦‚æžœå¹¿å‘Šè®¡è´¹æ¨¡å¼æ˜¯å±•çŽ°ä¸”è®¢å•å­˜åœ¨ åˆ™æ›´æ–°è®¢å•è¯è´¹
         if ($data['cost_mode']==2 && $data['order_id']>0 && $data['cost']>0) {
             Orders::model()->updateCostById($data['order_id'], $data['cost']);
         }
@@ -71,21 +71,21 @@ class VideoStatistics extends CActiveRecord {
     }
     
     /**
-     * Ìí¼ÓÎïÁÏ·Ö±íÍ³¼Æ Õë¶ÔHimiController¹ã¸æ»ñÈ¡Í³¼Æ
+     * æ·»åŠ ç‰©æ–™åˆ†è¡¨ç»Ÿè®¡ é’ˆå¯¹HimiControllerå¹¿å‘ŠèŽ·å–ç»Ÿè®¡
      */
     public function addMaterialStatForSite($data, $statData) {
-        // ÉèÖÃÕ¹Ê¾»òÕßµã»÷ÊÕÈë
+        // è®¾ç½®å±•ç¤ºæˆ–è€…ç‚¹å‡»æ”¶å…¥
         $data['cost'] = $this->getRowCost($data['cost_mode'], $data['price']);
-        // Ìí¼ÓÎïÁÏÍ³¼ÆÐÅÏ¢
+        // æ·»åŠ ç‰©æ–™ç»Ÿè®¡ä¿¡æ¯
         $this->addMaterialData($data, $statData);
     }
     
     /**
-     * ²åÈë·Ö±íÊý¾Ý
+     * æ’å…¥åˆ†è¡¨æ•°æ®
      */
     public function addSubStatData($data) {
         $date = date("Ymd", $data['create_time']);
-        // Ìí¼ÓÍ³¼ÆÐÅÏ¢
+        // æ·»åŠ ç»Ÿè®¡ä¿¡æ¯
         $AppStat = new VideoStat($date);
         $AppStat->ad_id = $data['ad_id'];
         $AppStat->position_id = $data['position_id'];
@@ -113,13 +113,13 @@ class VideoStatistics extends CActiveRecord {
         $return = array();
         $return['sid'] = $AppStat->id;
         $return['time'] = $data['create_time'];
-        // ½«Êý¾Ý¿âÑ¡Ôñµ½Ö÷¿â
+        // å°†æ•°æ®åº“é€‰æ‹©åˆ°ä¸»åº“
         CActiveRecord::$db = Yii::app()->db;
         return $return;
     }
     
     /**
-     * ²åÈëÎïÁÏ±íÊý¾Ý ÕâÀïÒ»¸ö¹ã¸æ¶ÔÓ¦¶à¸öÎïÁÏ Îª·½±ã¸ù¾ÝÎïÁÏÍ³¼ÆÐèÌí¼ÓÁÙÊ±ÎïÁÏÐÅÏ¢
+     * æ’å…¥ç‰©æ–™è¡¨æ•°æ® è¿™é‡Œä¸€ä¸ªå¹¿å‘Šå¯¹åº”å¤šä¸ªç‰©æ–™ ä¸ºæ–¹ä¾¿æ ¹æ®ç‰©æ–™ç»Ÿè®¡éœ€æ·»åŠ ä¸´æ—¶ç‰©æ–™ä¿¡æ¯
      */
     public function addMaterialData($data, $statData) {
         if ($data['material_ids']) {
@@ -138,13 +138,13 @@ class VideoStatistics extends CActiveRecord {
     }
 
     /**
-     * ÉèÖÃÃ¿ÌõÕ¹Ê¾»òÕßµã»÷ÊÕÈë
+     * è®¾ç½®æ¯æ¡å±•ç¤ºæˆ–è€…ç‚¹å‡»æ”¶å…¥
      */
     public function getRowCost($costMode, $cost) {
         $cost = ($cost>0)? $cost : 0.00;
         $reCost = 0.00;
         if ($costMode == 2) { // cpm
-            // ²éÑ¯Õ¹ÏÖ¼ÆÊý Ã¿Ò»Ç§´ÎËãÒ»´ÎÊÕÈë
+            // æŸ¥è¯¢å±•çŽ°è®¡æ•° æ¯ä¸€åƒæ¬¡ç®—ä¸€æ¬¡æ”¶å…¥
             /*$sql = "select show_count from ad_show_count where ad_id=".$data['ad_id'];
             $result = Yii::app()->db_stat_site->createCommand($sql)->queryRow();
             if (!empty($result)) {
@@ -159,7 +159,7 @@ class VideoStatistics extends CActiveRecord {
             }
             Yii::app()->db_stat_site->createCommand($sql)->execute();
             */
-            // ÔÝÃ¿´Î¼Æ·Ñ°´ÉèÖÃµÄcpm/1000À´¼ÆËã
+            // æš‚æ¯æ¬¡è®¡è´¹æŒ‰è®¾ç½®çš„cpm/1000æ¥è®¡ç®—
             $reCost = $cost/1000;
         } else { // cpc cpd
             $reCost = $cost;
@@ -168,7 +168,7 @@ class VideoStatistics extends CActiveRecord {
     }
 
     /**
-     * ´´½¨Í³¼Æ·Ö±í
+     * åˆ›å»ºç»Ÿè®¡åˆ†è¡¨
      */
     public function createStatTable() {
         $date = date("Ymd", time());
@@ -176,27 +176,27 @@ class VideoStatistics extends CActiveRecord {
         $query = "
         CREATE TABLE IF NOT EXISTS `$table` (
           `id` int(10) NOT NULL auto_increment,
-          `ad_id` int(10) default NULL COMMENT '¹ã¸æid',
-          `position_id` int(10) default NULL COMMENT '¹ã¸æÎ»id',
-          `order_id` int(10) default '0' COMMENT '¶©µ¥id',
-          `client_id`  int(10) NULL DEFAULT 0 COMMENT '¿Í»§id',
-          `seller_id` int(10) default '0' COMMENT 'ÏúÊÛid',
-          `material_ids` varchar(255) default NULL COMMENT 'ËùÓÐÕ¹Ê¾ÎïÁÏid',
-          `ip` int(10) default '0' COMMENT 'ip×ª»»ÕûÐÎ',
-          `region_id` int(10) default '0' COMMENT 'µØÓòid',
-          `connect_id` int(5) default '0' COMMENT '½ÓÈë·½Ê½id',
-          `browser_id` int(5) default '0' COMMENT 'ä¯ÀÀÆ÷ÀàÐÍ',
-          `language_id` int(5) default '0' COMMENT 'ä¯ÀÀÆ÷ÓïÑÔ',
-          `system_id` int(5) default '0' COMMENT 'ÏµÍ³',
-          `resolution_id` int(5) default '0' COMMENT '·Ö±æÂÊ',
-          `referer_id` int(10) default '0' COMMENT 'À´Ô´Óò',
-          `accessurl_id` int(10) default '0' COMMENT '±»·Ãurl',
-          `is_click` tinyint(1) default '0' COMMENT 'ÊÇ·ñµã»÷ 1£ºÊÇ  0 ²»ÊÇ',
-          `create_time` int(11) default NULL COMMENT '¹ã¸æÏÔÊ¾Ê±¼ä',
-          `click_time` int(11) default NULL COMMENT '¹ã¸æµã»÷Ê±¼ä',
-          `cost_mode` tinyint(1) default '0' COMMENT '¼Æ·ÑÄ£Ê½£»1.CPD; 2.CPM; 3.CPC',
-          `cost` float(8,2) default '0' COMMENT '¼Æ·Ñ',
-          `info` mediumtext COMMENT 'ÆäËûÐÅÏ¢À©Õ¹',
+          `ad_id` int(10) default NULL COMMENT 'å¹¿å‘Šid',
+          `position_id` int(10) default NULL COMMENT 'å¹¿å‘Šä½id',
+          `order_id` int(10) default '0' COMMENT 'è®¢å•id',
+          `client_id`  int(10) NULL DEFAULT 0 COMMENT 'å®¢æˆ·id',
+          `seller_id` int(10) default '0' COMMENT 'é”€å”®id',
+          `material_ids` varchar(255) default NULL COMMENT 'æ‰€æœ‰å±•ç¤ºç‰©æ–™id',
+          `ip` int(10) default '0' COMMENT 'ipè½¬æ¢æ•´å½¢',
+          `region_id` int(10) default '0' COMMENT 'åœ°åŸŸid',
+          `connect_id` int(5) default '0' COMMENT 'æŽ¥å…¥æ–¹å¼id',
+          `browser_id` int(5) default '0' COMMENT 'æµè§ˆå™¨ç±»åž‹',
+          `language_id` int(5) default '0' COMMENT 'æµè§ˆå™¨è¯­è¨€',
+          `system_id` int(5) default '0' COMMENT 'ç³»ç»Ÿ',
+          `resolution_id` int(5) default '0' COMMENT 'åˆ†è¾¨çŽ‡',
+          `referer_id` int(10) default '0' COMMENT 'æ¥æºåŸŸ',
+          `accessurl_id` int(10) default '0' COMMENT 'è¢«è®¿url',
+          `is_click` tinyint(1) default '0' COMMENT 'æ˜¯å¦ç‚¹å‡» 1ï¼šæ˜¯  0 ä¸æ˜¯',
+          `create_time` int(11) default NULL COMMENT 'å¹¿å‘Šæ˜¾ç¤ºæ—¶é—´',
+          `click_time` int(11) default NULL COMMENT 'å¹¿å‘Šç‚¹å‡»æ—¶é—´',
+          `cost_mode` tinyint(1) default '0' COMMENT 'è®¡è´¹æ¨¡å¼ï¼›1.CPD; 2.CPM; 3.CPC',
+          `cost` float(8,2) default '0' COMMENT 'è®¡è´¹',
+          `info` mediumtext COMMENT 'å…¶ä»–ä¿¡æ¯æ‰©å±•',
           `com_id` int(11) default NULL,
           UNIQUE KEY `id` (`id`),
           KEY `index` USING BTREE (`ad_id`,`position_id`,`order_id`,`client_id`,`seller_id`)
@@ -216,18 +216,18 @@ class VideoStatistics extends CActiveRecord {
             $model->is_click = 1;
             $model->click_time = time();
             $model->save();
-            // ½«Êý¾Ý¿âÑ¡Ôñµ½Ö÷¿â
+            // å°†æ•°æ®åº“é€‰æ‹©åˆ°ä¸»åº“
             CActiveRecord::$db = Yii::app()->db;
-            // ¸üÐÂÎïÁÏÓ³Éä±í
+            // æ›´æ–°ç‰©æ–™æ˜ å°„è¡¨
             $table = 'hm_sitematerial_'.$db_name;
             $sql = "update $table set is_click=1, click_count=click_count+1, click_time=".$time." where stat_id=".$params['sid']." and create_time=".$params['time'];
             Yii::app()->db_stat_sitemate->createCommand($sql)->execute();
-            // ¸üÐÂ¶©µ¥»¨·Ñ
+            // æ›´æ–°è®¢å•èŠ±è´¹
             if ($orderId>0 && $costMode==3 && $orderCost>0) {
                 Orders::model()->updateCostById($orderId, $orderCost);
             }
         } else {
-            // ½«Êý¾Ý¿âÑ¡Ôñµ½Ö÷¿â
+            // å°†æ•°æ®åº“é€‰æ‹©åˆ°ä¸»åº“
             CActiveRecord::$db = Yii::app()->db;
         }
     }
