@@ -122,9 +122,9 @@ class Position extends CActiveRecord {
      */
     public function showTypeConvert($showTypeId) {
         $data = array(
-            '4' => array('id' => 1, 'code' => 'fixed'),
-            '5' => array('id' => 2, 'code' => 'pop'),
-            '7' => array('id' => 3, 'code' => 'player')
+            '4' => array('id' => 1, 'code' => 'fixed'),//固定
+            '5' => array('id' => 2, 'code' => 'pop'),//插播
+            '7' => array('id' => 3, 'code' => 'player')//播放器
         );
         return $data[$showTypeId];
     }

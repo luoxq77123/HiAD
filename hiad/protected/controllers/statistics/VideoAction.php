@@ -13,9 +13,7 @@ class VideoAction extends CAction {
         $arrType = VideoStatistics::model()->getStatTypeName();
         $set['arrType'] = $arrType;
         $set['typeName'] = $arrType[$type];
-        
         $controller = $this->getController();
-        var_dump($set);exit;
         $controller->renderPartial('video', $set);
     }
 

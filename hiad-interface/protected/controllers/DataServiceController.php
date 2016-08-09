@@ -2,21 +2,35 @@
 class DataServiceController extends CController {
     
     public function actionIndex() {
+
         $return = array();
         $interfaces = array(
+            'getPlayerAdAPP'=>'appAd/adApp',
             'getAppAd' => 'appAd/adInfo',
             'getPlayerAd' => 'playerAd/adInfo',
             'getAdPosition' => 'position/positionData',
             'getVideoPosition' => 'position/videoPosition'
         );
+
         //app广告访问接口
         //www.hiad-interface.dev/DataService/?ITFV=1&parameter={"positionId": 79,"time": 123123123,"clientInfo": "{\"appType\":\"ios\",\"connect\":\"\\u79fb\\u52a8\",\"brand\":\"\\u82f9\\u679c\",\"platform\":\"iphone\",\"screenWidth\":100,\"screenHeight\":100}"}&method=getAppAd&appId=1&appkey=1184ee5c4989b41dbef3d8be0ad30dbb
         //echo json_encode(array('appType'=>'ios','connect'=>'移动','brand'=>'苹果','platform'=>'iphone','screenWidth'=>100,'screenHeight'=>100));exit;
         //echo json_encode(array('positionId'=>25,'time'=>123123123,'clientInfo'=>'{"appType":"ios","connect":"\u79fb\u52a8","brand":"\u82f9\u679c","platform":"iphone","screenWidth":100,"screenHeight":100}'));exit;
         //echo PassportHelper::decrycode('RT@@P@TWTDQ','1184ee5c4989b41dbef3d8be0ad30dbb');exit;
         //echo PassportHelper::crycode('abssdfsdfw312312sdf','1184ee5c4989b41dbef3d8be0ad30dbb');exit;
-        
-        if(isset($_POST)||empty($_POST)){ 
+
+        $_POST = $_REQUEST;
+         //新测试代码
+        if(!isset($_POST['ITFV'])){
+            $co = Yii::app()->createController($interfaces[$_POST['method']]);
+            list($controller, $action) = $co;
+            $return = $controller->$action();
+            echo json_encode($return);
+            exit;
+        }
+
+        //老接口代码
+        if (isset($_POST) || empty($_POST)) {
             $_POST = $_GET;
         }
         if (Yii::app()->request->isPostRequest) {
@@ -65,10 +79,10 @@ class DataServiceController extends CController {
     
     /**
      * 广告点击链接信息存入统计信息
-     * @sid     统计表id
-     * @type    广告类型 分site、app
-     * @date    广告获取日期 以方便查询表 如20121212
-     * @href    广告点击链接地址
+     * @sid   统计表id
+     * @type  广告类型 分site、app
+     * @date  广告获取日期 以方便查询表 如20121212
+     * @href  广告点击链接地址
      */
     public function actionStat() {
         $params = $this->_parseParams();
@@ -122,6 +136,7 @@ class DataServiceController extends CController {
     
     // 解析参数 解析_GET或取得参数
     private function _parseParams(){
+        //$_GET['p']=>type=site&sid=1&time=1467907962&href=http://www.baidu.com
         $params = array();
         if (!isset($_GET['p'])) {
             return $params;

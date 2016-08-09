@@ -1,0 +1,1 @@
+<?php $this->widget('PlayerWidget', array('cid' => $cid, 'w' => $w, 'h' => $h, 'code' => $code,'k'=>$k));?>

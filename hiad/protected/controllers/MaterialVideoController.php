@@ -79,14 +79,15 @@ class MaterialVideoController extends BaseController {
      */
     public function actionAdd() {
 
-        $material = new Material('add');
+        $material = new Material('add');//物料表
         $materialText = new MaterialVtext('add');
         $materialPic = new MaterialVpic('add');
         $materialFlash = new MaterialVflash('add');
         $materialMedia = new MaterialVmedia('add');
-        $materialVideo = new MaterialVvideo('add');
+        $materialVideo = new MaterialVvideo('add');//物料视频扩展表
         $materialType = MaterialVtype::model()->getMaterialTypes();
         $templateMode = MaterialVmedia::model()->getTemplateMode();
+
         $setting = Setting::model()->getSettings();
         if (isset($_POST['Material'])) {
             $return = array('code' => 1, 'message' => '添加成功');
@@ -94,14 +95,13 @@ class MaterialVideoController extends BaseController {
             $flag = array();
             if ($material->validate()) {
                 $material->com_id = Yii::app()->session['user']['com_id'];
-                $material->ad_type_id = 3;
+                $material->ad_type_id = 3;//广告类型id
                 $material->createtime = time();
                 if ($_POST['Material']['material_type_id'] == 1) {//文字
                     $materialText->attributes = $_POST['MaterialVtext'];
                     if ($materialText->validate()) {
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
-
                             $materialText->material_id = $material->attributes['id'];
                             if (isset($_POST['MaterialVtext']['style_1']))
                                 $materialText->style .='-' . $_POST['MaterialVtext']['style_1'];
@@ -245,14 +245,17 @@ class MaterialVideoController extends BaseController {
                     if ($materialMedia->hasErrors()) {
                         $flag = $materialMedia->errors;
                     }
-                } else if ($_POST['Material']['material_type_id'] == 5) {//video
+                } else if ($_POST['Material']['material_type_id'] == 5) {//视频
                     $materialVideo->attributes = $_POST['MaterialVvideo'];
+                    $urlArr = unserialize($_POST['MaterialVvideo']['url'][0]);
+                    $materialVideo->url= $urlArr['mp4Address']['host'].$urlArr['mp4Address']['clips'][0]['urls'][0];
+
                     if ($materialVideo->validate()) {
+                        //var_dump($_POST['MaterialVvideo']);exit;
                         if ($_POST['MaterialVvideo']['video_x'] && $_POST['MaterialVvideo']['video_y'])
                             $material->material_size = $_POST['MaterialVvideo']['video_x'] . '*' . $_POST['MaterialVvideo']['video_y'];
                         else if ($_POST['MaterialVvideo']['videopic_x'] && $_POST['MaterialVvideo']['videopic_y'])
                             $material->material_size = $_POST['MaterialVvideo']['videopic_x'] . '*' . $_POST['MaterialVvideo']['videopic_y'];
-
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
                             $materialVideo->material_id = $material->attributes['id'];
@@ -535,6 +538,11 @@ class MaterialVideoController extends BaseController {
                         $flag = $materialMedia->errors;
                     }
                 } else if ($_POST['Material']['material_type_id'] == 5) {//视频
+                    //切换过视频
+                    if(is_array($_POST['MaterialVvideo']['url'])){
+                        $urlArr = unserialize($_POST['MaterialVvideo']['url'][0]);
+                        $_POST['MaterialVvideo']['url']= $urlArr['mp4Address']['host'].$urlArr['mp4Address']['clips'][0]['urls'][0];
+                    }
                     $materialVideo->attributes = $_POST['MaterialVvideo'];
                     if ($materialVideo->validate()) {
                         if ($_POST['MaterialVvideo']['video_x'] && $_POST['MaterialVvideo']['video_y']) {
@@ -598,7 +606,7 @@ class MaterialVideoController extends BaseController {
             }
             die(json_encode($return));
         }
-        $materialType = MaterialType::model()->getMaterialTypes();
+        $materialType = MaterialVtype::model()->getMaterialTypes();
         $set = array(
             'materialType' => $materialType,
             'material' => $material,
@@ -610,6 +618,7 @@ class MaterialVideoController extends BaseController {
             'templateMode' => $templateMode,
             'setting' => $setting
         );
+        //var_dump($set['materialVideo']);exit;
         $this->renderPartial('edit', $set);
     }
 

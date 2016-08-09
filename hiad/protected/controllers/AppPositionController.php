@@ -37,6 +37,7 @@ class AppPositionController extends BaseController {
             } else if ($_POST['size_defined']) {
                 $position->position_size = $_POST['size_x'] . '*' . $_POST['size_y'];
             }
+
             $position->com_id = Yii::app()->session['user']['com_id'];
             $position->createtime = time();
             $position->ad_type_id = 2;

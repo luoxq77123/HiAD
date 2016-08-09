@@ -1,0 +1,9 @@
+剧集插件
+1.功能说明:
+  播放器通过该插件可支持剧集连播,全屏跳入下一个连击,非全屏播放器播放下一剧集
+
+2.使用说明:
+
+function getPlugins(){
+  return '[{"source":"EpisodeCmsTopPlugin.swf"}]'
+}

@@ -8,6 +8,111 @@ border:0;
 body{font-family:"宋体"; font-size:12px; color:#4d4d4d; background:#eee; }
 p,ul,li,dt,dd,dl,img,body,h1,h2,h3,h4{list-style:none;}
 a{ text-decoration:none;}
+
+.btn1{ float:left; height:29px;*height:30px!important; line-height:29px;*line-height:30px!important; padding-left:15px;background:url(../images/12035_bg.png) 0 0 no-repeat; color:#fff; border-radius:3px; cursor:pointer; display: inline-block;}
+.btn1 span,.btn1 button{ display:inline-block; height:29px; *height:30px!important; padding-right:15px; background:url(../images/12035_bg.png) right 0 no-repeat; cursor:pointer; color:#fff;}
+
+.but_fanhui {
+  background: url("../images/btn_return.png") no-repeat;
+  border: medium none;
+  color: #0065A9;
+  cursor: pointer;
+  font-size: 0;
+  height: 30px;
+  line-height: 0;
+  padding-left: 13px;
+  text-align: center;
+  width: 62px;
+}
+
+.btn_confirm {
+  background: url(../images/btn_confirm.png) no-repeat;
+  cursor: pointer;
+  height: 30px;
+  border: none;
+  padding: 5px 15px;
+  width: 61px;
+  color: #0065A9;
+  font-size: 0;
+  line-height: 0;
+}
+.f_l {
+  float: left;
+}
+.date_select {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  height: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 118px;
+}
+.combo {
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  width: 113px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.but_w {
+  background: url("../images/but_w_bg.png") repeat-x scroll;
+  border: 1px solid #DBDADB;
+  border-radius: 4px 4px 4px 4px;
+  height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.input_s {
+  background: url("../images/input_bg.png") repeat scroll;
+  border: 1px solid #C4C2C2;
+  border-radius: 4px 4px 4px 4px;
+  font-size: 14px;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 5px;
+  width: 327px;
+}
+
+table .p td {
+  background: url("../images/table_page_bg.png") repeat-x scroll;
+  color: #2F393F;
+  font-family: '宋体';
+  height: 43px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+table .p .l {
+  background: url("../images/table_page_l.png") repeat-y scroll;
+  height: 43px;
+  width: 6px;
+}
+
+table .p .r {
+  background: url("../images/table_page_r.png") repeat-y scroll;
+  height: 43px;
+  width: 6px;
+}
+.pagination {
+  display: inline;
+}
+
+.pagination span {
+  font-size: 12px;
+  margin: 0 8px;
+}
+
+.pagination span a {
+  color: #0065A9;
+  text-decoration: none;
+  outline: none;
+}
+
 .fl{ float:left; *display:inline}
 .fr{ float:right;*display:inline}
 img{border:0; vertical-align:top;}

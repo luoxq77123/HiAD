@@ -356,7 +356,8 @@ $form = $this->beginWidget('CActiveForm', array(
     <th>目标窗口:</th>
     <td><?php echo $form->radioButtonList($materialFlash, 'target_window', MaterialVflash::model()->getWindowOption(), array('separator' => ' ')); ?></td>
   </tr>
-  <!--end flash--> 
+  <!--end flash-->
+
   <!-- rich media -->
     <tr valign="top" class="ad_type_more media_more hiden">
         <th><span class="notion">*</span>广告物料模板</th>
@@ -420,20 +421,37 @@ $form = $this->beginWidget('CActiveForm', array(
         </td>
     </tr>
   <!-- end rich media -->
+
   <!--video-->
   <tr valign="top" class="ad_type_more video_more hiden">
     <th><span class="notion">*</span><?php echo $form->label($materialVideo, 'url'); ?></th>
-    <td><!--上传vido--> 
-      <span style="float:left;">
-      <input type="text" id="video_url" name="MaterialVvideo[url]" readonly class="txt1" >
-      </span> <span class="span_btn_upload">
-      <input type="file" id="video_upload" />
-      </span> <span id="video_parameter" style="display:none;margin-left:10px;"> 尺寸：宽
-      <input type="text" id="video_width" name="MaterialVvideo[video_x]" class="txt1 size_input" />
-      &nbsp;*&nbsp;高
-      <input type="text" id="video_height" name="MaterialVvideo[video_y]"  class="txt1 size_input" />
-      &nbsp;(px) </span>
-      <div id="videoQueue"></div></td>
+<!--新版本-->
+      <td >
+          <a href="javascript:void(0);" id="picgroup_upload"  onclick="showVideos()" style=" padding-left:15px; display:inline-block; height:29px; *height:30px!important; padding-right:15px; background:url(<?php  echo Yii::app()->request->baseUrl;?>/images/subnav_libg.png) 0 0 no-repeat; cursor:pointer; color:#fff; "><span>视频库</span></a>
+          <span id="" style="margin-left:10px;"> 尺寸：宽
+           <input type="text" id="video_width" name="MaterialVvideo[video_x]" class="txt1 size_input" />
+           &nbsp;*&nbsp;高
+          <input type="text" id="video_height" name="MaterialVvideo[video_y]"  class="txt1 size_input" />
+          &nbsp;(px) </span>
+      </td>
+      <!--原版本-->
+<!--    <td><!--上传vido-->
+<!--      <span style="float:left;">-->
+<!--      <input type="text" id="video_url" name="MaterialVvideo[url]" readonly class="txt1" >-->
+<!--      </span> <span class="span_btn_upload">-->
+<!--      <input type="file" id="video_upload" />-->
+<!--      </span> <span id="video_parameter" style="display:none;margin-left:10px;"> 尺寸：宽-->
+<!--      <input type="text" id="video_width" name="MaterialVvideo[video_x]" class="txt1 size_input" />-->
+<!--      &nbsp;*&nbsp;高-->
+<!--      <input type="text" id="video_height" name="MaterialVvideo[video_y]"  class="txt1 size_input" />-->
+<!--      &nbsp;(px) </span>-->
+<!--      <div id="videoQueue"></div>-->
+<!--    </td>-->
+  </tr>
+  <tr>
+      <td colspan="2" style="height:auto; margin-bottom:10px;">
+        <table id="pic_options"></table>
+      </td>
   </tr>
   <tr valign="top" class="ad_type_more video_more hiden">
     <th>视频背景:</th>
@@ -489,7 +507,16 @@ $form = $this->beginWidget('CActiveForm', array(
     <td><?php echo $form->radioButtonList($materialVideo, 'target_window', MaterialVvideo::model()->getWindowOption(), array('separator' => ' ')); ?></td>
   </tr>
   <!--end video-->
+
 </table>
+
+<!--弹出框-->
+   <div id="window-videos" data-options="closed:true,tools:'#window-videos-bt'" class="easyui-window" style="overflow: hidden;"></div>
+   <div id="window-videos-bt" style="display:none;">
+       <input type="button" id="bt_video_return" class="but_fanhui" value="返回" />
+       <input type="button" id="bt_video_confirm" class="btn_confirm" value="确定" />
+   </div>
+
 <div class="bgline"></div>
 <br/>
 <div class="pt_35 ml_240">
@@ -498,8 +525,17 @@ $form = $this->beginWidget('CActiveForm', array(
   <button type="button" class="ml_40 iscbut_2">返回</button>
   </a> </div>
 <?php $this->endWidget(); ?>
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-easyui-1.3.3/themes/ihimi/easyui.css">
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-easyui-1.3.3/themes/icon.css">
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main1.js" type="text/javascript"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/zeroclipboard/ZeroClipboard.js" type="text/javascript"></script>
 <script type="text/javascript">
+
     //详细信息展开收起
     var $id = function (id) 
     {
@@ -524,7 +560,48 @@ $form = $this->beginWidget('CActiveForm', array(
             $id(offid).style.display = "block";
         }
     }
+
+    var $videosWin;
+
     $(document).ready(function(e) {
+        //弹出视频库
+        $videosWin = $('#window-videos').window({
+                   modal:true,
+                   closed:true,
+                   closable:false,
+                   collapsible:false,
+                   maximizable:false,
+                   minimizable:false,
+                   resizable:false,
+                   shadow:false,
+                   tools:'#window-videos-bt',
+                   onClose:function(){
+                       $('#window-videos').html('');
+                   }
+               });
+        //视频库 返回
+        $("#bt_video_return").click(function(){
+                $videosWin.window('close');
+            });
+        //视频库 确认
+        $("#bt_video_confirm").click(function(){
+                $(".img_box").find("input[name='video_id[]']:checked").each(function(){
+                    var pic_url = $(this).parent().find("input[name='video_image[]']").val();
+                    var video_url = $(this).parent().find("input[name='video_url[]']").val();//获取播放地址url
+                    var video_host = $(this).parent().find("input[name='video_host[]']").val();//获取播放地址host
+                    var video_code = $(this).parent().find("input[name='video_host[]']").next("input").val();//获取播放代码
+                    var video_info = $(this).parent().find("textarea").val();
+                    if (pic_url && video_info) {
+                        if (!setVideoValue(pic_url, video_info)) {
+                            addPicWrapper(video_url,video_host,video_code);
+                            setVideoValue(pic_url, video_info);
+                        }
+                    }
+                });
+                $videosWin.window('close');
+            }
+        );
+
         $('#MaterialVtext_color').modcoder_excolor({
             hue_slider : 2,
             root_path:'<?php echo Yii::app()->request->baseUrl; ?>/js/excolor/',
@@ -1165,6 +1242,110 @@ $form = $this->beginWidget('CActiveForm', array(
         $("#RichMediaTpl_"+name+"_mode_upload_wrapper").hide();
         $("#RichMediaTpl_"+name+"_mode_remote_wrapper").show();
     }
+
+
+    //获取视频集
+    function showVideos(){
+        var width = 850;
+        var height = 510;
+        var top = ($(window).height() - height) * 0.5;
+        if(top <=0 ) {
+            var top = 1;
+        }
+        $videosWin.window({
+            title:"视频库",
+            width:width,
+            height:height,
+            top:top,
+            left:($(window).width() - width) * 0.5,
+            closed:false,
+            href:'<?php echo Yii::app()->createUrl('video/popupList');?>?selectMode=multiple'
+        });
+    }
+
+    function setVideoValue(pic_url, video_info) {
+        var is_set = false;
+        $("#pic_options .pic_option").each(function(){
+            if ($(this).find("textarea").val()=='') {
+                $(this).find("textarea").val(video_info);
+                $(this).find("#video_pic").attr("src", pic_url);
+                $(this).find("#video_image").val(pic_url);
+                is_set = true;
+                return false;
+            }
+        });
+        return is_set;
+    }
+//移除视频按钮
+    function delSimpleVideo(obj){
+        var curObj = $(obj).parent().parent().parent().parent().parent().parent();
+        deleteTr(curObj);
+    }
+
+    function addPicWrapper(video_url,video_host,video_code){
+
+        var tr = '\
+                 <tr class="pic_option">\
+                     <td>\
+                         <table>\
+                             <tr>\
+                                 <td rowspan="2" width="120"  height="110">\
+                                     <div style="border:1px solid #ddd; width:100px; height:100px;">\
+                                         <img id="video_pic" src="" width="100" height="100" />\
+                                         <img style="width:26px;height:26px;margin:auto;position:relative;z-index:9999; left:32px;top:-65px;cursor: pointer;" src="<?php echo Yii::app()->request->baseUrl; ?>/images/btn_video.png" onClick="play_video_add(\'' + video_url + '\',\'' + video_host + '\',this)" />\
+                                         <input type="hidden" value=\''+video_code+'\' />\
+                                         <input type="hidden" id = "video_image" name= MaterialVvideo[video_image] />\
+                                     </div>\
+                                 </td>\
+                                 <td>\
+                                     <textarea name="MaterialVvideo[url][]" style="display:none;"></textarea>\
+                                    \
+                                 </td>\
+                             </tr>\
+                             <tr>\
+                                 <td>\
+                                 <input type="button" class="but_w" onclick="delSimpleVideo(this)" value="删除">\
+                                 \
+                                \
+                                 </td>\
+                             </tr>\
+                         </table>\
+                     </td>\
+                 </tr>\
+             ';
+
+<!--        var tr = '\-->
+<!--            <tr class="pic_option">\-->
+<!--                <td>\-->
+<!--                    <table>\-->
+<!--                        <tr>\-->
+<!--                            <td rowspan="2" width="120"  height="110">\-->
+<!--                                <div style="border:1px solid #ddd; width:100px; height:100px;">\-->
+<!--                                    <img id="video_pic" src="" width="100" height="100" />\-->
+<!--                                    <img style="width:26px;height:26px;margin:auto;position:relative;z-index:9999; left:32px;top:-65px;cursor: pointer;" src="--><?php //echo Yii::app()->request->baseUrl; ?><!--/images/btn_video.png" onClick="play_video_add(\'' + video_url + '\',\'' + video_host + '\',this)" />\-->
+<!--                                    <input type="hidden" value=\''+video_code+'\' />\-->
+<!--                                </div>\-->
+<!--                            </td>\-->
+<!--                            <td>\-->
+<!--                                <textarea name="MaterialVvideo[url][]" style="display:none;"></textarea>\-->
+<!--                                视频描述：<input type="text" class="input_s" name="video_description[]" style="width:238px;" />\-->
+<!--                            </td>\-->
+<!--                        </tr>\-->
+<!--                        <tr>\-->
+<!--                            <td>\-->
+<!--                            <input type="button" class="but_w" onclick="delSimpleVideo(this)" value="删除">\-->
+<!--                            <input type="button" class="but_w" onclick="upSimpleVideo(this)" value="上移">\-->
+<!--                            <input type="button" class="but_w" onclick="downSimpleVideo(this)" value="下移">\-->
+<!--                            </td>\-->
+<!--                        </tr>\-->
+<!--                    </table>\-->
+<!--                </td>\-->
+<!--            </tr>\-->
+<!--        ';-->
+        $(tr).appendTo($("#pic_options"));
+    }
+
+
 </script>
 <style type="text/css">
     .pssinput,.size_input{width:30px;}

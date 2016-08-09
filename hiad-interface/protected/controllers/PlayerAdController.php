@@ -16,6 +16,50 @@ class PlayerAdController extends BaseController {
     }
 
     public function adInfo() {
+
+		$param = json_decode($_POST['parameter'],true);
+		$tenant = $param['tenant'];
+		$cushion = $param['cushion'];
+		$catalogid = $param['catalogid'];
+		$time = $param['time'];
+        $arr = array();
+	if($cushion==2){
+		$arr[] = array(
+			"type"=>2,
+			"src"=>"http://123.56.29.145/video/366673.jpg",
+            "cushion"=>2,
+			"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+			"appstore"=>0,
+			"time"=>10
+		);
+	}else{
+		$arr[] = array(
+			"type"=>2,
+			"src"=>"http://123.56.29.145/video/366673.jpg",
+            "cushion"=>2,
+			"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+			"appstore"=>0,
+			"time"=>10
+		);
+		$arr[] =array(
+			"type"=>3,
+			"src"=>"http://123.56.29.145/video/guide_video.mp4",
+			"cushion"=>1,
+			"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+			"appstore"=>0,
+			"time"=>10
+		);
+	}
+        $data['totaltime'] = 20;
+        $data['data'] = $arr;
+		$this->return['returnCode'] = 100;
+        $this->return['returnDesc'] = '返回成功';
+        $this->return['returnData'] =$data;
+		return $this->return;
+		exit;
+		
+		
+		
         $this->return['returnCode'] = 200;
         $this->return['returnDesc'] = '缺少必要参数';
         $this->return['returnData'] = array();

@@ -125,12 +125,13 @@ class MaterialAppController extends BaseController {
                 } else if ($_POST['Material']['material_type_id'] == 4) {//富媒体
                 } else if ($_POST['Material']['material_type_id'] == 5) {//video
                     $materialVideo->attributes = $_POST['MaterialAppVideo'];
+                    $urlArr = unserialize($_POST['MaterialAppVideo']['url'][0]);
+                    $materialVideo->url= $urlArr['mp4Address']['host'].$urlArr['mp4Address']['clips'][0]['urls'][0];
                     if ($materialVideo->validate()) {
                         if ($_POST['MaterialAppVideo']['video_x'] && $_POST['MaterialAppVideo']['video_y'])
                             $material->material_size = $_POST['MaterialAppVideo']['video_x'] . '*' . $_POST['MaterialAppVideo']['video_y'];
                         else if ($_POST['MaterialAppVideo']['videopic_x'] && $_POST['MaterialAppVideo']['videopic_y'])
                             $material->material_size = $_POST['MaterialAppVideo']['videopic_x'] . '*' . $_POST['MaterialAppVideo']['videopic_y'];
-
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
                             $materialVideo->material_id = $material->attributes['id'];
@@ -247,6 +248,12 @@ class MaterialAppController extends BaseController {
                         $flag = $materialPic->errors;
                     }
                 } else if ($_POST['Material']['material_type_id'] == 5) {//视频
+                    //var_dump($_POST);exit;
+                    //切换过视频
+                    if (is_array($_POST['MaterialAppVideo']['url'])) {
+                        $urlArr = unserialize($_POST['MaterialAppVideo']['url'][0]);
+                        $_POST['MaterialAppVideo']['url'] = $urlArr['mp4Address']['host'] . $urlArr['mp4Address']['clips'][0]['urls'][0];
+                    }
                     $materialVideo->attributes = $_POST['MaterialAppVideo'];
                     if ($materialVideo->validate()) {
                         if ($_POST['MaterialAppVideo']['video_x'] && $_POST['MaterialAppVideo']['video_y']) {

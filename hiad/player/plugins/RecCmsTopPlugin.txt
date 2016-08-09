@@ -1,0 +1,13 @@
+播后推荐插件
+1.功能说明:
+  播放器通过该插件可对设置播放完后的推荐列表的显示
+
+3.使用示例:
+function getPlugins(){
+  return '[{"source":"RecCmsTopPlugin.swf","host":"http://app.sobey.cmstop.net/?app=video&controller=video&action=output_recommend"}]'
+}
+
+参数说明:
+  host:推荐插件数据提供的地址
+
+

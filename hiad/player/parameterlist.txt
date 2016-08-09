@@ -1,0 +1,42 @@
+parameter name				type			default value							comment
+
+url					string				""							播放地址
+streamType				string				"vod"						播放流类型,详细类型见后面说明
+logging					boolean				false						是否开启日志(仅用于测试,发布后请移除该参数)
+logLevel				string				"all"						日志级别(all,fatal,error,warning,info,debug)(仅用于测试,发布后请移除该参数)	
+logFilter				string				"*"							日志过滤参数(仅用于测试,发布后请移除该参数)
+plugin					boolean				false						是否启动插件
+volume					number				80							初始音量(0-100)
+loop					boolean				false						是否循环播放
+smoothing				boolean				false						是否开启平滑处理
+autoPlay				boolean				true						是否自动播放,设为false,视频在加载后将不自动播放
+autoLoad				boolean				true						是否自动加载,设为false,视频将不自动加载,仅点击播放按钮或外部调用Resume方法是型加载
+skin					string				""							应用外部皮肤
+bufferTime				number				5							缓冲时间
+mode					number				1							播放模式(1:letterbox,2:none,3:fill)
+configable				boolean				true						是否允许打开配置窗口
+initMedia				string				""							初始化媒体地址
+nonDisplay				string				"spectrum"					单音频播放选项,spectrum:频谱,initMedia:初始化媒体
+seekParam				string				"timecode=ms" for vod		seek参数格式定义(参数名称=时间单位),时间单位支持秒(s)和毫秒(ms)
+									"delay=s" for live			仅在streamType为seekable时起作用(for instance,seekableLive,seekableVod)
+host					string				""							当url为懒加载时(live://pid:... or vod://pid:...),用于加载url的三屏地址
+audioOnly				bool				false						是否强制设置为音频模式
+
+
+
+***streamType details***
+
+live:普通直播流
+
+vod:普通点播流(rtmp服务器提供的点播流即支持服务器seek)
+
+seekableLive:支持服务器seek的直播流,时间参数为与当前时间的偏移
+
+seekableLiveS:支持服务器seek的直播流,时间参数为绝对时间(1970,1,1以来经过的毫秒数)
+
+seekableVod:支持服务器seek的点播流
+
+p2p:支持本地p2p加速的seekableVod
+
+p2pLiveS:支持本地p2p加速的seekableLive
+***********************************

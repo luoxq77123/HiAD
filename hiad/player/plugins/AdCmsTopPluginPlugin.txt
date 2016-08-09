@@ -1,0 +1,13 @@
+广告插件
+1.功能说明:
+  在播放器播放之前提供一个广告的展现的功能
+2.插件特殊配置说明
+  rc:标示在外部调用PlayNew时是否重新加载广告插件,默认值false
+  callback:调用外部js的方法
+  host:存放广告主机地址
+3.举例:
+function getPlugins(){
+  return '[{"source":"AdCmsTopPlugin.swf","rc":"1","blockLoading":"true","blockPlaying":"true","host":"http://app.sobey.cmstop.net/?app=video&controller=video&action=output_ads"}]'
+}
+
+

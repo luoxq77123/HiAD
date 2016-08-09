@@ -23,14 +23,11 @@ class VideoAdController extends BaseController {
 
         // 设置默认选择状态为未完成
         $_GET['status'] = isset($_GET['status']) ? $_GET['status'] : 11;
-
         // 根据条件获取广告列表和分页信息
         $adData = Ad::model()->getPagerList(array(), 3);
         $adlist = $adData['list'];
         $pager = $adData['pager'];
-
         $status = array('all' => '全部') + Ad::model()->getAdStatus();
-
         $setArray = array(
             'adlist' => $adlist,
             'pages' => $pager,

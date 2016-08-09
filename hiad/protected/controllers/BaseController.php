@@ -4,7 +4,7 @@
  * 基础controller
  */
 class BaseController extends CController {
-    
+
     public function beforeAction($action) {
         parent::beforeAction($action);
         

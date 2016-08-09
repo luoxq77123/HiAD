@@ -15,6 +15,50 @@ class AppAdController extends BaseController {
         $this->_adToStat = array();
     }
 
+    public function adApp(){
+		$arr['totaltime'] = 20;
+		$param = json_decode($_POST['parameter'],true);
+		$tenant = $param['tenant'];
+		$cushion = $param['cushion'];
+		$catalogid = $param['catalogid'];
+		$time = $param['time'];
+		if($cushion==2){
+			$arr[] = array(
+				"type"=>2,
+				"src"=>"http://123.56.29.145/video/366673.jpg",
+				"cushion"=>2,
+				"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+				"appstore"=>0,
+				"time"=>10
+			);
+		}else{
+			$arr[] = array(
+				"type"=>2,
+				"src"=>"http://123.56.29.145/video/366673.jpg",
+				"cushion"=>2,
+				"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+				"appstore"=>0,
+				"time"=>10
+			);
+			$arr[] =array(
+				"type"=>3,
+				"src"=>"http://123.56.29.145/video/guide_video.mp4",
+				"cushion"=>1,
+				"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+				"appstore"=>0,
+				"time"=>10
+			);
+		}
+	
+	
+		$this->return['returnCode'] = 100;
+        $this->return['returnDesc'] = '返回成功';
+        $this->return['returnData'] =$arr; 
+		return $this->return;
+
+
+    }
+
     public function adInfo() {
         $this->return['returnCode'] = 200;
         $this->return['returnDesc'] = '缺少必要参数';
@@ -102,10 +146,10 @@ class AppAdController extends BaseController {
         if ($appType == 'ios' && $posParams['appType']=='ios') {
             $pAttr['width'] = $attrParams['width'];
             $pAttr['height'] = $attrParams['height'];
-            if ($pKey == 'fixed') {
-                $pAttr['idleTake'] = $appPosition->idle_take;
-            } else if ($pKey == 'pop') {
-                $pAttr['isFullScreen'] = $appPosition->is_full;
+            if ($pKey == 'fixed') {//固定
+                $pAttr['idleTake'] = $appPosition->idle_take;//固定占位
+            } else if ($pKey == 'pop') {//插播
+                $pAttr['isFullScreen'] = $appPosition->is_full;//是否全屏
                 $pAttr['showTime'] = $appPosition->staytime;
                 $pAttr['left'] = $attrParams['left'];
                 $pAttr['top'] = $attrParams['top'];
@@ -196,13 +240,13 @@ class AppAdController extends BaseController {
         //$data = AreaIp::model()->getDataByIp($ip);
         //$ipCode = isset($data->code) ? $data->code : 0;
         $ipCode = 0;
-        $connect = $client_info['connect'];
+        $connect = $client_info['connect'];//
         $data = AppAdConnect::model()->getDataByName($connect);
         $connect_id = isset($data->id) ? $data->id : 0;
-        $brand = $client_info['brand'];
+        $brand = $client_info['brand'];//品牌
         $data = AppAdBrand::model()->getDataByName($brand);
         $brand_id = isset($data->id) ? $data->id : 0;
-        $platform = $client_info['platform'];
+        $platform = $client_info['platform'];//平台
         $data = AppAdPlatform::model()->getDataByName($platform);
         $platform_id = isset($data->id) ? $data->id : 0;
         $name = $client_info['screenWidth'] . '*' . $client_info['screenHeight'];
@@ -244,7 +288,7 @@ class AppAdController extends BaseController {
                 }
             }
         }
-        $arrAdId = array_diff($ad_arr, $un_arr);
+        $arrAdId = array_diff($ad_arr, $un_arr);//过滤广告
         //$arrAdId = $ad_arr;
         if (!$this->checkArrData($arrAdId)) {
             return array();

@@ -32,12 +32,12 @@ class AppAd extends CActiveRecord {
     }
     
     /**
-     * »ñÈ¡¿Í»§¶Ë¹ã¸æÍ¶·ÅÊôÐÔ ¸ù¾Ý¹ã¸æid
+     * ï¿½ï¿½È¡ï¿½Í»ï¿½ï¿½Ë¹ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ý¹ï¿½ï¿½id
      */
     public function getByArrAdId($arrAid, $cushion=0) {
         $criteria1 = new CDbCriteria();
         $criteria1->addInCondition('ad_id', $arrAid);
-        $criteria1->addColumnCondition(array('cushion' => $cushion));
+        $criteria1->addColumnCondition(array('cushion' => $cushion));//å¹¿å‘Šæ’­æ”¾å™¨ç±»åž‹ï¼š0 ä¸€èˆ¬å¹¿å‘Šã€1 ç¼“å†²å¹¿å‘Šã€2 æš‚åœå¹¿å‘Šã€3 ç‰‡å°¾å¹¿å‘Š
         $data = $this->findAll($criteria1);
         $return = array();
         if (!empty($data)) {
@@ -49,7 +49,7 @@ class AppAd extends CActiveRecord {
     }
     
     /**
-     * ¸ù¾ÝÑ¡ÔñÎïÁÏÄ£Ê½ ·µ»ØÊÇ·ñÊÇÂÖ²¥¹ã¸æ
+     * ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½
      */
     public function materialIsRotate($rotateMode=1) {
         return ($rotateMode==3)? 1 : 0;

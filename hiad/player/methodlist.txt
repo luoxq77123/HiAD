@@ -1,0 +1,90 @@
+/**
+*
+* 开始播放一段新视频
+* param url 新的视频地址
+* param streamType 新的视频类型,与初始化参数相同时,可空
+*/
+function PlayNew(url:string,streamType:string=null):void;	
+
+
+/**
+*
+* 暂停正在播放中的视频(某些直播流不支持暂停)
+* 
+*/
+function Pause():void;	
+
+
+
+
+/**
+*
+* 停止播放
+* 
+*/
+function StopVideo():void;	
+
+
+
+/**
+*
+* 恢复一段暂停中的视频
+* 
+*/
+function Resume():void;	
+
+
+
+/**
+*
+* 设置音量
+* param volume 音量
+*/
+function SetVolume(volume:Number):void;	
+
+
+
+
+/**
+*
+* 跳转到指定位置,时间单位秒
+* param time 要跳转的时间
+*/
+function Seek(time:Number):void;	
+
+
+/**
+*
+* 设置静音
+* param flag 是否静音,true为静音,false为取消静音
+*/
+function Mute(flag:boolean):void;
+
+
+/**
+*
+* 设置播放模式
+* param mode 模式(1:letterbox,2:none,3:fill)
+*/
+function SetMode(mode:Number):void;
+
+
+/**
+*
+* 获取当前播放时间,时间单位秒
+*/
+function getTime():Number;
+
+/**
+* 该方法公布于ScreenshotPlugin.swf插件
+* 截取当前视频正在播放的画面
+* @param imgType 图片类型,0为png,1为jpg,默认为1
+* @param width 图片宽度,0为取播放宽度,默认为0
+* @param height 图片高度,0为取播放高度,默认为0
+* @param quality 图片质量,0-100,默认为50
+* @param cb 回调函数名称,默认为null
+* 
+* Note:如果提供了回调函数名称,该方法立即返回null,在截屏操作完成后调用回调函数,回调接受3个参数(图片字节数组的base64格式字符串,真实宽度,真实高度)
+*      如果没有提供回调,该方法会在截屏完成后才返回,返回图片字节数组的base64格式字符串
+**/ 	
+function Screenshot(imgType:Number=1,width:Number=0,height:Number=0,quality:Number=50.0,cb:String=null):*;

@@ -1514,7 +1514,7 @@ a:hover.l-btn-plain-selected {
   filter: alpha(opacity=100);
 }
 .datebox .combo-arrow {
-  background-image:url('images/s_bg2.png'); width:31px; height:30px; line-height:30px; margin-left:10px;
+  background-image:url('images/datapicker-icon.gif'); width:31px; height:30px; line-height:30px; margin-left:10px;
   background-position: center center;
 }
 .datebox-button {
