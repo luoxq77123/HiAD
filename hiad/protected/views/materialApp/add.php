@@ -178,21 +178,11 @@ $form = $this->beginWidget('CActiveForm', array(
         <td>
             <a href="javascript:void(0);" id="picgroup_upload"  onclick="showVideos()" style=" padding-left:15px; display:inline-block; height:29px; *height:30px!important; padding-right:15px; background:url(<?php  echo Yii::app()->request->baseUrl;?>/images/subnav_libg.png) 0 0 no-repeat; cursor:pointer; color:#fff; "><span>视频库</span></a>
             <span id="" style="margin-left:10px;"> 尺寸：宽
-              <input type="text" id="video_width" name="MaterialAppVideo[video_x]" class="txt1 size_input" />
-              &nbsp;*&nbsp;高
-             <input type="text" id="video_height" name="MaterialAppVideo[video_y]"  class="txt1 size_input" />
-             &nbsp;(px) </span>
+                <input type="text" id="video_width" name="MaterialAppVideo[video_x]" class="txt1 size_input" />&nbsp;*&nbsp;高
+                <input type="text" id="video_height" name="MaterialAppVideo[video_y]"  class="txt1 size_input" />&nbsp;(px)
+            </span>
+            <input type="hidden" name="MaterialAppVideo[player_code]" id="playerCodeList">
         </td>
-        <!--原始版本-->
-<!--        <td>-->
-<!--            <!--上传vido-->-->
-<!--            <span style="float:left;"><input type="text" id="video_url" name="MaterialAppVideo[url]" readonly class="txt1" ></span>-->
-<!--            <span class="span_btn_upload"><input type="file" id="video_upload" /></span>-->
-<!--            <span id="video_parameter" style="display:none;margin-left:10px;">-->
-<!--                尺寸：宽<input type="text" id="video_width" name="MaterialAppVideo[video_x]" class="txt1 size_input" />&nbsp;*&nbsp;高<input type="text" id="video_height" name="MaterialAppVideo[video_y]"  class="txt1 size_input" />&nbsp;(px)-->
-<!--            </span>-->
-<!--            <div id="videoQueue"></div>-->
-<!--        </td>-->
     </tr>
 
     <tr valign="top" class="ad_type_more video_more hiden">
@@ -616,6 +606,7 @@ $form = $this->beginWidget('CActiveForm', array(
     }
 
     function addPicWrapper(video_url, video_host, video_code) {
+        $("#playerCodeList").val(video_code);
         var tr = '\
                      <tr class="pic_option">\
                          <td>\
@@ -625,20 +616,16 @@ $form = $this->beginWidget('CActiveForm', array(
                                          <div style="border:1px solid #ddd; width:100px; height:100px;">\
                                              <img id="video_pic" src="" width="100" height="100" />\
                                              <img style="width:26px;height:26px;margin:auto;position:relative;z-index:9999; left:32px;top:-65px;cursor: pointer;" src="<?php echo Yii::app()->request->baseUrl; ?>/images/btn_video.png" onClick="play_video_add(\'' + video_url + '\',\'' + video_host + '\',this)" />\
-                                             <input type="hidden" value=\'' + video_code + '\' />\
                                              <input type="hidden" id = "video_image" name= MaterialAppVideo[video_image] />\
                                          </div>\
                                      </td>\
                                      <td>\
                                          <textarea name="MaterialAppVideo[url][]" style="display:none;"></textarea>\
-                                        \
                                      </td>\
                                  </tr>\
                                  <tr>\
                                      <td>\
                                      <input type="button" class="but_w" onclick="delSimpleVideo(this)" value="删除">\
-                                     \
-                                    \
                                      </td>\
                                  </tr>\
                              </table>\

@@ -249,7 +249,7 @@ class SobeyVMS {
         return $returnData;
     }
     /**
-     * 
+     * 获取某个点播视频信息
      */
     function getVideoById($id=null){        
         $params = array(
@@ -260,7 +260,7 @@ class SobeyVMS {
             'videoId' =>$id      
         );
         $parameter = $this->array2Url($params);
-        Yii::import("application.helpers.Ccrul");    
+        Yii::import("application.helpers.Ccrul");
         $returnData = Ccrul::post($this->_interface_url, $parameter); 
         if ($this->data_type == 'json') {
             $returnData = @json_decode($returnData, true);

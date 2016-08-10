@@ -95,37 +95,29 @@ class ClientController extends BaseController {
                 }
                 break;
             case 5: // 视频
-                if ($adType==1) {
-                    $rdata = MaterialVideo::model()->find(array(
-                        'select' => 'url',
+                $modleArr = array(
+                    1=>'MaterialVideo',//站点
+                    2=>'MaterialAppVideo',//客户端
+                    3=>'MaterialVvideo'//视频
+                );
+                $modleName = isset($modleArr[$adType]) ? $modleArr[$adType] : '';
+                if ($modleName) {
+                    $rdata = $modleName::model()->find(array(
+                        'select' => 'url,player_code',
                         'condition' => 'material_id=:id',
                         'params' => array(':id' => $id)
                     ));
                     if ($rdata) {
                         $data['url'] = $rdata->url;
                         $data['pic'] = $rdata->reserve_pic_url;
-                        $data['width'] = $rdata->video_x>0? $rdata->video_x : 400;
-                        $data['height'] = $rdata->video_y>0? $rdata->video_y : 300;
-                    }
-                } else if ($adType==2) {
-                
-                } else if ($adType==3) {
-                    $rdata = MaterialVvideo::model()->find(array(
-                        'select' => 'url',
-                        'condition' => 'material_id=:id',
-                        'params' => array(':id' => $id)
-                    ));
-                    if ($rdata) {
-                        $data['url'] = $rdata->url;
-                        $data['pic'] = $rdata->reserve_pic_url;
-                        $data['width'] = $rdata->video_x>0? $rdata->video_x : 400;
-                        $data['height'] = $rdata->video_y>0? $rdata->video_y : 300;
+                        $data['width'] = $rdata->video_x > 0 ? $rdata->video_x : 400;
+                        $data['height'] = $rdata->video_y > 0 ? $rdata->video_y : 300;
+                        $data['player_code'] = isset($rdata->player_code)?substr($rdata->player_code,9,-3):'';
                     }
                 }
                 break;
             }
-            if (!empty($data))
-                $setArray['data'] = $data;
+            $setArray['data'] = $data;
         }
         $this->renderPartial('cbad', $setArray);
     }

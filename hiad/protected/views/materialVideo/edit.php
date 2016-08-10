@@ -305,8 +305,10 @@ $form = $this->beginWidget('CActiveForm', array(
             <a href="javascript:void(0);" id="picgroup_upload"  onclick="showVideos()" style=" padding-left:15px; display:inline-block; height:29px; *height:30px!important; padding-right:15px; background:url(<?php  echo Yii::app()->request->baseUrl;?>/images/subnav_libg.png) 0 0 no-repeat; cursor:pointer; color:#fff; "><span>视频库</span></a>
             <span style="float:left;"><input type="hidden" id="video_url" name="MaterialVvideo[url]" readonly class="txt1" value="<?php if (isset($materialVideo->url)) echo $materialVideo->url; ?>"></span>
             <span id="video_parameter" <?php if (!isset($materialVideo->url)) echo 'style="display:none;margin-left:10px;"'; ?>>
-                尺寸：宽<input type="text" id="video_width" name="MaterialVvideo[video_x]" class="txt1 size_input" value="<?php if (isset($materialVideo->video_x)) echo $materialVideo->video_x; ?>"/>&nbsp;*&nbsp;高<input type="text" id="video_height" name="MaterialVvideo[video_y]"  class="txt1 size_input" value="<?php if (isset($materialVideo->video_y)) echo $materialVideo->video_y; ?>"/>&nbsp;(px)
+                尺寸：宽<input type="text" id="video_width" name="MaterialVvideo[video_x]" class="txt1 size_input" value="<?php if (isset($materialVideo->video_x)) echo $materialVideo->video_x; ?>"/>&nbsp;*&nbsp;
+                     高<input type="text" id="video_height" name="MaterialVvideo[video_y]"  class="txt1 size_input" value="<?php if (isset($materialVideo->video_y)) echo $materialVideo->video_y; ?>"/>&nbsp;(px)
             </span>
+            <input type="hidden" name="MaterialVvideo[player_code]" id ="playerCodeList" value="<?php if (isset($materialVideo->player_code)) echo $materialVideo->player_code; ?>" >
             <div id="videoQueue"></div>
         </td>
     </tr>
@@ -1453,6 +1455,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
     function addPicWrapper(video_url, video_host, video_code) {
         $("#pic_options").html("");
+        $("#playerCodeList").val(video_code);
         var tr = '\
                    <tr class="pic_option">\
                         <td>\

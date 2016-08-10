@@ -29,22 +29,24 @@
          <?php elseif($type == 5):?>
             <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/player/jwplayer.js"></script>
             <link href="<?php echo Yii::app()->request->baseUrl; ?>/js/player/webwidget_slideshow_dot.css" rel="stylesheet" type="text/css"/>
-            <div class="lxr_sx preview_box" id="video_box">
-            <p>
-            <script type="text/javascript">
-                jwplayer("video_box").setup({
-                    flashplayer: "<?php echo Yii::app()->request->baseUrl; ?>/js/player/playerdiy.swf",
-                    file: "<?php echo Yii::app()->request->baseUrl.$data['url']; ?>",
-                    width: '<?php echo $data['width']; ?>',
-                    height: '<?php echo $data['height']; ?>',
-                    image:"<?php echo Yii::app()->request->baseUrl.$data['pic']; ?>",
-                    controlbar: "over",
-                    screencolor :"#CCC",
-                    autostart : true
-                });
-            </script>
-            </p>
-            </div>
+<!--            <div class="lxr_sx preview_box" id="video_box">-->
+<!--            <p>-->
+<!--            <script type="text/javascript">-->
+<!--                jwplayer("video_box").setup({-->
+<!--                    flashplayer: "--><?php //echo Yii::app()->request->baseUrl; ?><!--/js/player/playerdiy.swf",-->
+<!--                    file: "--><?php //echo Yii::app()->request->baseUrl.$data['url']; ?><!--",-->
+<!--                    width: '--><?php //echo $data['width']; ?><!--',-->
+<!--                    height: '--><?php //echo $data['height']; ?><!--',-->
+<!--                    image:"--><?php //echo Yii::app()->request->baseUrl.$data['pic']; ?><!--",-->
+<!--                    controlbar: "over",-->
+<!--                    screencolor :"#CCC",-->
+<!--                    autostart : true-->
+<!--                });-->
+<!--            </script>-->
+<!--            </p>-->
+<!--            </div>-->
+
+        <?php echo $data['player_code'];?>
          <?php endif;?>
     </div>
    </body>

@@ -251,7 +251,6 @@ class MaterialVideoController extends BaseController {
                     $materialVideo->url= $urlArr['mp4Address']['host'].$urlArr['mp4Address']['clips'][0]['urls'][0];
 
                     if ($materialVideo->validate()) {
-                        //var_dump($_POST['MaterialVvideo']);exit;
                         if ($_POST['MaterialVvideo']['video_x'] && $_POST['MaterialVvideo']['video_y'])
                             $material->material_size = $_POST['MaterialVvideo']['video_x'] . '*' . $_POST['MaterialVvideo']['video_y'];
                         else if ($_POST['MaterialVvideo']['videopic_x'] && $_POST['MaterialVvideo']['videopic_y'])

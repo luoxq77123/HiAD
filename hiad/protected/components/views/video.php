@@ -6,7 +6,7 @@
                 <th width="125">添加时间</th>
             </tr>
             <?php if (!empty($list) && is_array($list)): ?>
-                <?php foreach ($list as $one): ?>
+                <?php foreach ($list as $one):?>
                     <tr>
                         <td class="tc">
                             <?php $disable_select = !isset($one['tsAddress']['clips'][0]['urls'][0]) || !isset($one['mp4Address']['clips'][0]['urls'][0]) ? 'disabled="disabled"' : '';?>

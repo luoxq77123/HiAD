@@ -13,7 +13,7 @@ class MaterialAppVideo extends CActiveRecord {
     public function rules() {
         return array(
             array('url', 'required', 'message' => '{attribute}不能为空', 'on' => 'add,edit'),
-            array('monitor_video,monitor_video_type,click_link,video_image,reserve,reserve_pic_url,reserve_pic_link,monitor,monitor_link,target_window,video_x,video_y,videopic_x,videopic_y', 'safe', 'on' => 'add,edit')
+            array('monitor_video,monitor_video_type,click_link,video_image,player_code,reserve,reserve_pic_url,reserve_pic_link,monitor,monitor_link,target_window,video_x,video_y,videopic_x,videopic_y', 'safe', 'on' => 'add,edit')
         );
     }
 
