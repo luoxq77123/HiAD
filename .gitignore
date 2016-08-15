@@ -1,5 +1,5 @@
 .idea
 assets
-hiad/protected/runtime/*
-hiad-interface/protected/runtime/*
+protected/runtime/*
+
 
