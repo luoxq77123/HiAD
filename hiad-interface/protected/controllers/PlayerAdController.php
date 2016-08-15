@@ -16,50 +16,120 @@ class PlayerAdController extends BaseController {
     }
 
     public function adInfo() {
-
 		$param = json_decode($_POST['parameter'],true);
-		$tenant = $param['tenant'];
-		$cushion = $param['cushion'];
-		$catalogid = $param['catalogid'];
-		$time = $param['time'];
+		$tenant = $param['tenant'];//租户
+		$cushion = $param['cushion'];//广告播放类型 (1 缓冲广告、2 暂停广告、3 片尾广告、4插播广告)
+		$catalogid = $param['catalogid'];//scms栏目ID
+		$time = $param['time'];//请求时间
+        //根据租户获取租户ID
+        $Company = Company::getComId($tenant);
+        $com_id = $Company?$Company->id:'';
+        if(!$com_id){
+            $this->AppResponse();
+        }
+        //获取栏目ID下的广告位ID
+        $VpCatalog = VpCatalog::getpositionId($catalogid);
+        $position_id = (isset($VpCatalog['id']) && $VpCatalog['id'])?$VpCatalog['id']:'';
+        if(!$position_id){
+            $this->AppResponse();
+        }
+        //获取该用户在该广告位下正在投放的广告
+        $adArr = Ad::getUserPosition($com_id,$position_id);
+        if(!$adArr){
+            $this->AppResponse();
+        }
+        //从投放--视频扩展表获取物料ID信息
+        $VideoAd = VideoAd::getMaterialData($adArr);
+        if(!$VideoAd){
+            $this->AppResponse();
+        }
+        $materialIdArr = array();
+        foreach($VideoAd as $val){
+            $unval = unserialize($val);
+            $materialIdArr[] = $unval[0]['id'];
+        }
+        //从物料表获取当前物料类型
+        $MaterialTypeArr = Material::getMaterialType($materialIdArr);
+
+        //根据物料类型去不同的物料扩展表获取数据
+        //图片
+        $MaterialVpic =  isset($MaterialTypeArr[2])?MaterialVpic::getMaterData($MaterialTypeArr[2]):array();
+        //视频
+        $MaterialVvideo = isset($MaterialTypeArr[5])?MaterialVvideo::getMaterData($MaterialTypeArr[5]):array();
+
+        //组装返回数据
+        $Response = array();
+        //播放类型为暂停广告是则只返回图片
+        if($cushion==2){
+            foreach ($MaterialVpic as $val) {
+                $arr['type'] = 2;
+                $arr['src'] = $val['url'] ? Yii::app()->params->pictureUrl.$val['url'] : '';
+                $arr['cushion'] = $cushion;
+                $arr['href'] = $val['click_link'] ? $val['click_link'] : '';
+                $arr['appstore'] = 0;
+                $arr['time'] = 10;
+                $Response[] = $arr;
+            }
+        }else{
+            foreach ($MaterialVpic as $val) {
+                $arr['type'] = 2;
+                $arr['src'] = $val['url'] ? Yii::app()->params->pictureUrl . $val['url'] : '';
+                $arr['cushion'] = $cushion;
+                $arr['href'] = $val['click_link'] ? $val['click_link'] : '';
+                $arr['appstore'] = 0;
+                $arr['time'] = 10;
+                $Response[] = $arr;
+            }
+            foreach ($MaterialVvideo as $val) {
+                $arr['type'] = 3;
+                $arr['src'] = $val['url'] ? $val['url'] : '';
+                $arr['cushion'] = $cushion;
+                $arr['href'] = $val['click_link'] ? $val['click_link'] : '';
+                $arr['appstore'] = 0;
+                $arr['time'] = 10;
+                $Response[] = $arr;
+            }
+
+        }
+
+        $ResponseData['totaltime'] = 20;
+        $ResponseData['data'] = $Response;
+        $this->AppResponse($ResponseData);
+        exit;
         $arr = array();
-	if($cushion==2){
-		$arr[] = array(
-			"type"=>2,
-			"src"=>"http://123.56.29.145/video/366673.jpg",
-            "cushion"=>2,
-			"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
-			"appstore"=>0,
-			"time"=>10
-		);
-	}else{
-		$arr[] = array(
-			"type"=>2,
-			"src"=>"http://123.56.29.145/video/366673.jpg",
-            "cushion"=>2,
-			"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
-			"appstore"=>0,
-			"time"=>10
-		);
-		$arr[] =array(
-			"type"=>3,
-			"src"=>"http://123.56.29.145/video/guide_video.mp4",
-			"cushion"=>1,
-			"href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
-			"appstore"=>0,
-			"time"=>10
-		);
-	}
+        if($cushion==2){
+            $arr[] = array(
+                "type"=>2,
+                "src"=>"http://123.56.29.145/video/366673.jpg",
+                "cushion"=>2,
+                "href"=>"http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+                "appstore"=>0,
+                "time"=>10
+            );
+        }else{
+            $arr[] = array(
+                "type" => 2,
+                "src" => "http://123.56.29.145/video/366673.jpg",
+                "cushion" => 2,
+                "href" => "http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+                "appstore" => 0,
+                "time" => 10
+            );
+            $arr[] = array(
+                "type" => 3,
+                "src" => "http://123.56.29.145/video/guide_video.mp4",
+                "cushion" => 1,
+                "href" => "http://ad.hrbtv.net:82/dataService/stat?p=dHlwZT1zaXRlJnNpZD0xJnRpbWU9MTQ2NzkwNzk2MiZocmVmPWh0dHA6Ly93d3cuYmFpZHUuY29t",
+                "appstore" => 0,
+                "time" => 10
+            );
+	    }
         $data['totaltime'] = 20;
         $data['data'] = $arr;
-		$this->return['returnCode'] = 100;
-        $this->return['returnDesc'] = '返回成功';
-        $this->return['returnData'] =$data;
-		return $this->return;
 		exit;
 		
 		
-		
+		//老接口
         $this->return['returnCode'] = 200;
         $this->return['returnDesc'] = '缺少必要参数';
         $this->return['returnData'] = array();

@@ -34,4 +34,10 @@ class Company extends CActiveRecord {
         }
         return $company;
     }
+
+    //根据租户获取租户ID
+    public static function getComId($tenant)
+    {
+        return self::model()->find('contact_name=:contact_name',array(':contact_name'=>$tenant));
+    }
 }

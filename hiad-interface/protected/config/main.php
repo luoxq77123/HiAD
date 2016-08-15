@@ -85,7 +85,9 @@ return array(
             'class' => 'application.components.Oplog',
         )
     ),
-        // application-level parameters that can be accessed
-// using Yii::app()->params['paramName']
-//'params'=>require(dirname(__FILE__).'/params.php'),
+    // application-level parameters that can be accessed
+    // using Yii::app()->params['paramName']
+    'params'=>require(dirname(__FILE__).'/params.php'),
+
+
 );

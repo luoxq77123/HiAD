@@ -54,4 +54,27 @@ class BaseController extends CController {
         }
         return true;
     }
+
+    //统一返回接口
+    public function AppResponse($dataArr=array(),$code=100)
+    {
+        //错误编码
+        $data['returnCode'] = $code;
+        //错误描述
+        $data['returnDesc'] = $this->codeMsg($code);
+        //返回内容
+        $data['returnData'] =$dataArr;
+        echo json_encode($data);exit;
+    }
+
+    //获取错误编码对应的错误描述
+    public function codeMsg($code)
+    {
+       $msgArr = array(
+           100=>'返回成功',
+           101=>'没有找到符合条件的广告',
+           200=>'缺少必要参数',
+       );
+       return isset($msgArr[$code])?$msgArr[$code]:'';
+    }
 }

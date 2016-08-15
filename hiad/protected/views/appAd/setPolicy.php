@@ -175,7 +175,9 @@
                     <li id="time_set" class="help">
                       <img onclick="delTimeSet();" src="<?php echo Yii::app()->request->baseUrl; ?>/images/deltit.gif">
                       时间 = <?php echo $directional['time_set']['text'];?>
-                      <textarea id="time_set_text" name="time_set_text" style="display:none;"><?php echo $directional['time_set']['value'];?></textarea>
+                      <textarea id="time_set_text" name="time_set_text" style="display:none;">
+                          <?php echo $directional['time_set']['value'];?>
+                      </textarea>
                       [
                       <a onclick="showDirectional(3)" href="javascript:void(0);">修改</a>
                       ]

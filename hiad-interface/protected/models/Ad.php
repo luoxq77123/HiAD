@@ -9,7 +9,6 @@ class Ad extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
-        $this->_arrSiteClient = array();
     }
 
     /**
@@ -617,11 +616,40 @@ class Ad extends CActiveRecord {
     /**
      * 时间字符串转换时间戳
      */ 
-    public function mstrToTime($strTime) {
+    public function mstrToTime($strTime)
+    {
         $times = explode(" ", $strTime);
         $date = explode("-", $times[0]);
         $time = explode(":", $times[1]);
         $time[2] = isset($time[2]) ? $time[2] : 0;
         return mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
     }
+
+    //获取用户当前时间下正在投放的广告
+    public static function getUserPosition($com_id,$position_id)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'id,ad_type_id,ads_start_time,ads_end_time';
+        $criteria->addColumnCondition(array(
+            "com_id" => $com_id,
+            "position_id"=> $position_id,
+            "status" => 1
+        ));
+        $time = time();
+        $criteria->addCondition("ads_start_time<$time");
+        $ret = self::model()->findAll($criteria);
+        $arr = array();
+        foreach($ret as $val){
+            if(!$val['attributes']['ads_end_time']){
+                $arr[] = $val['attributes'];
+            }else{
+                if($time<=$val['attributes']['ads_end_time']){
+                    $arr[] = $val['attributes'];
+                }
+            }
+        }
+        return $arr;
+    }
+
+
 }

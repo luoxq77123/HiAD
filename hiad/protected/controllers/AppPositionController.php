@@ -26,7 +26,7 @@ class AppPositionController extends BaseController {
         $position = new Position('add');
         $appPosition = new AppPosition();
         $adShows = AdShow::model()->getListByTypeId(2);
-        $apps = App::model()->getAppList();
+        $apps = App::model()->getAppList();//应用
         $apps = empty($apps)? array(0 => '请选择') : array(0 => '请选择') + $apps;
         if (isset($_POST['AppPosition']) && isset($_POST['Position'])) {
             $return = array('code' => 1, 'message' => '添加成功');
@@ -44,7 +44,6 @@ class AppPositionController extends BaseController {
             //设置客户端应用model场景
             $appPosition->setScenario($adShows[$_POST['Position']['ad_show_id']]['code']);
             $appPosition->attributes = $_POST['AppPosition'];
-
             if ($position->validate() && $appPosition->validate()) {
                 if ($position->save()) {
                     // 保存客户端广告位属性

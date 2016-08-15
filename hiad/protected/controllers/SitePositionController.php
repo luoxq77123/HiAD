@@ -40,7 +40,6 @@ class SitePositionController extends BaseController {
             //设置站点广告位model场景
             $sitePosition->setScenario($adShows[$_POST['Position']['ad_show_id']]['code']);
             $sitePosition->attributes = $_POST['SitePosition'];
-
             if ($position->validate() && $sitePosition->validate()) {
                 if ($position->save()) {
                     $sitePosition->position_id = $position->id;
@@ -72,8 +71,8 @@ class SitePositionController extends BaseController {
         $set = array(
             'sitePosition' => $sitePosition,
             'position' => $position,
-            'sizes' => $sizes,
-            'sites' => $sites,
+            'sizes' => $sizes,//尺寸
+            'sites' => $sites,//站点表
             'adShows' => $adShows
         );
         $this->renderPartial('add', $set);

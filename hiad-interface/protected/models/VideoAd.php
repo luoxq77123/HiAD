@@ -152,4 +152,23 @@ class VideoAd extends CActiveRecord {
         );
         return $data;
     }
+
+    //根据投放ID获取物料信息
+    public static function getMaterialData($adArr){
+        $arr = array();
+        foreach($adArr as $val){
+            $arr[]= $val['id'];
+        }
+        $criteria = new CDbCriteria();
+        $criteria->select = 'id,material';
+        $criteria->addInCondition('ad_id',$arr);
+        $ret = self::model()->findAll($criteria);
+        $retArr = array();
+        foreach($ret as $val){
+            $attr = $val['attributes'];
+            $retArr[$attr['id']] = $attr['material'];
+        }
+        return $retArr;
+    }
+
 }

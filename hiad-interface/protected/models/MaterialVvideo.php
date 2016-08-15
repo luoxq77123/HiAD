@@ -56,4 +56,21 @@ class MaterialVvideo extends CActiveRecord {
         return array(1 => '透明', -1 => '不透明');
     }
 
+    //根据物料ID获取物料信息
+    public static function getMaterData($arr)
+    {
+        if (!$arr) {
+            return false;
+        }
+        $criteria = new CDbCriteria();
+        $criteria->select = 'material_id,url,click_link';
+        $criteria->addInCondition('material_id', $arr);
+        $ret = self::model()->findAll($criteria);
+        $retArr = array();
+        foreach ($ret as $val) {
+            $retArr[] = $val['attributes'];
+        }
+        return $retArr;
+    }
+
 }

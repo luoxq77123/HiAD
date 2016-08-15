@@ -838,7 +838,6 @@ $form = $this->beginWidget('CActiveForm', array(
     });
     
     function showResponse(responseText, statusText)  {
-     // alert(responseText);
         var data = $.parseJSON(responseText);
         if(data.code < 0){
             banner_message(data.message);

@@ -117,41 +117,32 @@ class MaterialVideoController extends BaseController {
                                 $materialText->float_style .='-' . $_POST['MaterialVtext']['float_style_3'];
                             if (isset($_POST['MaterialVtext']['monitor'])) {
                                 $materialText->monitor_link = $_POST['MaterialVtext']['monitor_link'];
-                                $materialText->monitor = 1;
-                            } else {
-                                $materialText->monitor = 0;
                             }
+                            $materialText->monitor = isset($_POST['MaterialVtext']['monitor'])?1:0;
                             $materialText->save();
                         }
                     }
-                    if ($materialText->hasErrors()) {
-                        $flag = $materialText->errors;
-                    }
+                    $flag = $materialText->hasErrors()?$materialText->errors:'';
                 } else if ($_POST['Material']['material_type_id'] == 2) {//图片
-                    //echo "<pre>";print_r($_POST['MaterialVpic']);
-                    $materialPic->attributes = $_POST['MaterialVpic'];
+                    $MaterialVpic = $_POST['MaterialVpic'];
+                    $materialPic->attributes = $MaterialVpic;
                     if ($materialPic->validate()) {
-                        if ($_POST['MaterialVpic']['pic_x'] && $_POST['MaterialVpic']['pic_y']){
-                            $material->material_size = $_POST['MaterialVpic']['pic_x'] . '*' . $_POST['MaterialVpic']['pic_y'];
-                            $materialPic->pic_x=$_POST['MaterialVpic']['pic_x'];
-                            $materialPic->pic_y=$_POST['MaterialVpic']['pic_y'];                        
+                        if ($MaterialVpic['pic_x'] && $MaterialVpic['pic_y']){
+                            $material->material_size = $MaterialVpic['pic_x'] . '*' . $MaterialVpic['pic_y'];
+                            $materialPic->pic_x=$MaterialVpic['pic_x'];
+                            $materialPic->pic_y=$MaterialVpic['pic_y'];
                         }
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
-
                             $materialPic->material_id = $material->attributes['id'];
-                            if (!isset($_POST['MaterialVpic']['monitor'])) {
-                                $materialPic->monitor_link = $_POST['MaterialVpic']['monitor_link'];
-                                $materialPic->monitor = 1;
-                            } else {
-                                $materialPic->monitor = 0;
+                            $materialPic->monitor = isset($MaterialVpic['monitor'])?0:1;
+                            if (!isset($MaterialVpic['monitor'])) {
+                                $materialPic->monitor_link = $MaterialVpic['monitor_link'];
                             }
                             $materialPic->save();
                         }
                     }
-                    if ($materialPic->hasErrors()) {
-                        $flag = $materialPic->errors;
-                    }
+                    $flag = $materialPic->hasErrors()?$materialPic->errors:'';
                 } else if ($_POST['Material']['material_type_id'] == 3) {//flash
                     $materialFlash->attributes = $_POST['MaterialVflash'];
                     if ($materialFlash->validate()) {
@@ -180,9 +171,7 @@ class MaterialVideoController extends BaseController {
                             $materialFlash->save();
                         }
                     }
-                    if ($materialFlash->hasErrors()) {
-                        $flag = $materialFlash->errors;
-                    }
+                    $flag = $materialFlash->hasErrors()?$materialFlash->errors:'';
                 } else if ($_POST['Material']['material_type_id'] == 4) {//富媒体
                     $materialMedia->attributes = $_POST['MaterialVmedia'];
                     if ($materialMedia->validate()) {
@@ -242,47 +231,37 @@ class MaterialVideoController extends BaseController {
                             $materialMedia->save();
                         }
                     }
-                    if ($materialMedia->hasErrors()) {
-                        $flag = $materialMedia->errors;
-                    }
+                    $flag = $materialMedia->hasErrors()?$materialMedia->errors:'';
                 } else if ($_POST['Material']['material_type_id'] == 5) {//视频
-                    $materialVideo->attributes = $_POST['MaterialVvideo'];
-                    $urlArr = unserialize($_POST['MaterialVvideo']['url'][0]);
+                    $MaterialVvideo = $_POST['MaterialVvideo'];
+                    $materialVideo->attributes = $MaterialVvideo;
+                    $urlArr = unserialize($MaterialVvideo['url'][0]);
                     $materialVideo->url= $urlArr['mp4Address']['host'].$urlArr['mp4Address']['clips'][0]['urls'][0];
 
                     if ($materialVideo->validate()) {
-                        if ($_POST['MaterialVvideo']['video_x'] && $_POST['MaterialVvideo']['video_y'])
-                            $material->material_size = $_POST['MaterialVvideo']['video_x'] . '*' . $_POST['MaterialVvideo']['video_y'];
-                        else if ($_POST['MaterialVvideo']['videopic_x'] && $_POST['MaterialVvideo']['videopic_y'])
-                            $material->material_size = $_POST['MaterialVvideo']['videopic_x'] . '*' . $_POST['MaterialVvideo']['videopic_y'];
+                        if ($MaterialVvideo['video_x'] && $MaterialVvideo['video_y'])
+                            $material->material_size = $MaterialVvideo['video_x'] . '*' . $MaterialVvideo['video_y'];
+                        else if ($MaterialVvideo['videopic_x'] && $MaterialVvideo['videopic_y'])
+                            $material->material_size = $MaterialVvideo['videopic_x'] . '*' . $MaterialVvideo['videopic_y'];
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
                             $materialVideo->material_id = $material->attributes['id'];
-                            if (!isset($_POST['MaterialVvideo']['monitor_video']))
+                            if (!isset($MaterialVvideo['monitor_video']))
                                 $materialVideo->click_link = 'http://';
-                            if (!isset($_POST['MaterialVvideo']['reserve'])) {
+                            if (!isset($MaterialVvideo['reserve'])) {
                                 $materialVideo->reserve_pic_url = NULL;
                                 $materialVideo->reserve_pic_link = 'http://';
                             }
-                            if (!isset($_POST['MaterialVvideo']['monitor']))
+                            if (!isset($MaterialVvideo['monitor']))
                                 $materialVideo->monitor_link = 'http://';
                             $materialVideo->save();
                         }
                     }
-                    if ($materialVideo->hasErrors()) {
-                        $flag = $materialVideo->errors;
-                    }
+                    $flag = $materialVideo->hasErrors()?$materialVideo->errors:'';
                 }
             }
-
-            if ($material->hasErrors()) {
-                $return['code'] = -1;
-                $return['message'] = '<p style="color:red;">添加失败</p>';
-                foreach ($material->errors as $item) {
-                    foreach ($item as $one)
-                        $return['message'] .= '<p>' . $one . '</p>';
-                }
-            } else if ($flag) {
+            $flag = $material->hasErrors()?$material->errors:'';
+            if ($flag) {
                 $return['code'] = -1;
                 $return['message'] = '<p style="color:red;">添加失败</p>';
                 foreach ($flag->errors as $item) {
@@ -553,7 +532,6 @@ class MaterialVideoController extends BaseController {
 
                         if ($material->save()) {
                             Yii::app()->oplog->add(); //添加日志
-
                             $materialVideo->material_id = $material->id;
                             if (!isset($_POST['MaterialVvideo']['monitor_video'])) {
                                 $materialVideo->monitor_video = 0;
@@ -617,7 +595,6 @@ class MaterialVideoController extends BaseController {
             'templateMode' => $templateMode,
             'setting' => $setting
         );
-        //var_dump($set['materialVideo']);exit;
         $this->renderPartial('edit', $set);
     }
 

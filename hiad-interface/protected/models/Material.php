@@ -195,4 +195,24 @@ class Material extends CActiveRecord {
             'media' => '5'
         );
     }
+
+    public static function getMaterialType($arr)
+    {
+        if (!$arr) {
+            return false;
+        }
+        $criteria = new CDbCriteria();
+        $criteria->select = 'id,material_type_id';
+        $criteria->addInCondition('id', $arr);
+        $criteria->addColumnCondition(array('status'=> 1));
+        $ret = self::model()->findAll($criteria);
+        $retArr = array();
+        foreach ($ret as $val) {
+            $attr = $val['attributes'];
+            $retArr[$attr['material_type_id']][] = $attr['id'];
+        }
+        return $retArr;
+    }
+
+
 }

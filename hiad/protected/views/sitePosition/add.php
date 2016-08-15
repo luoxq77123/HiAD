@@ -84,7 +84,17 @@ $form = $this->beginWidget('CActiveForm', array(
   </tr>
   <tr valign="top" class="ad_type_more float_more pop_more hiden">
     <th><?php echo $form->label($sitePosition, 'staytime');?></th>
-    <td><span id="st_unlimit" class="st_limit">不限&nbsp;<a href="javascript:void(0);" style="margin:0;" onclick="st_limit('limit');">更改</a></span> <span id="st_limit" class="hiden st_limit"> <?php echo $form->textField($sitePosition, 'staytime', array('class' => 'txt1 pssinput')) ;?>秒 <a href="javascript:void(0);" style="margin:0;" onclick="st_limit('unlimit');">不限</a> </span>&nbsp; <span class="ad_type_more float_more"><?php echo $form->checkBox($sitePosition, 'scroll');?>&nbsp;<?php echo $form->label($sitePosition, 'scroll');?></span>
+    <td>
+        <span id="st_unlimit" class="st_limit">
+            不限&nbsp;<a href="javascript:void(0);" style="margin:0;" onclick="st_limit('limit');">更改</a>
+        </span>
+        <span id="st_limit" class="hiden st_limit">
+            <?php echo $form->textField($sitePosition, 'staytime', array('class' => 'txt1 pssinput')) ;?>秒
+            <a href="javascript:void(0);" style="margin:0;" onclick="st_limit('unlimit');">不限</a>
+        </span>&nbsp;
+        <span class="ad_type_more float_more">
+            <?php echo $form->checkBox($sitePosition, 'scroll');?>&nbsp;<?php echo $form->label($sitePosition, 'scroll');?>
+        </span>
       <label for="SitePosition_staytime" generated="true" class="error"></label></td>
   </tr>
   <tr valign="top">

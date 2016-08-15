@@ -26,7 +26,6 @@ class Menu extends CActiveRecord {
             $criteria->order = 'sort asc';
             $criteria->addColumnCondition(array('status' => 1));
             $menu_data = $this->findAll($criteria);
-
             $tree = array();
             foreach ($menu_data as $one) {
                 $url = $one->route ? Yii::app()->createUrl($one->route) : '';
