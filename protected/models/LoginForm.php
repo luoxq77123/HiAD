@@ -42,7 +42,6 @@ class LoginForm extends CFormModel {
     public function authenticate($attribute, $params) {
         if (!$this->hasErrors()) {
             $user = User::model()->findByAttributes(array('email' => $this->email));
-
             if ($user && $user->password == $user->hashPassword($this->password, $user->salt)) {
                 if ($user->status == 1) {
                     $this->userInfo = $user;

@@ -2,7 +2,7 @@
 
 return array(
     'class'=>'application.components.DbConnectionMan',//Specify it,instead of CDbConnection,other options is same as CDbConnection
-    'connectionString' => 'mysql:host=localhost;dbname=hm_adms',
+    'connectionString' => 'mysql:host=127.0.0.1;dbname=hm_adms',
     'emulatePrepare' => true,
     'username' => 'root',
     'password' => '',

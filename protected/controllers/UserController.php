@@ -13,6 +13,7 @@ class UserController extends CController {
             $this->redirect($this->createUrl('backend/index'));
             exit;
         }
+
         $form = new LoginForm;
         if (isset($_POST['LoginForm'])) {
             $return = array('code' => 1, 'message' => '');
@@ -22,7 +23,6 @@ class UserController extends CController {
             if ($form->validate()) {
                 $company = Company::model()->getComById($form->userInfo->com_id);
                 $role_id = $form->userInfo->uid == $company['super_uid'] ? 'super' : $form->userInfo->role_id;
-
                 Yii::app()->session['user'] = array(
                     'uid' => $form->userInfo->uid,
                     'email' => $form->userInfo->email,

@@ -54,12 +54,10 @@ class AdminController extends BaseController {
      */
     public function actionAdd() {
         $user = new User('add');
-
         if (isset($_POST['User'])) {
-            $return = array('code' => 1, 'message' => '添加成功');
             $user->attributes = $_POST['User'];
             if ($user->validate()) {
-                $user->salt = $user->generateSalt();//干扰串
+                $user->salt = $user->generateSalt();//干扰码
                 $user->password = $user->hashPassword($user->password_first, $user->salt);
                 $user->com_id = Yii::app()->session['user']['com_id'];
                 $user->createtime = time();
@@ -68,15 +66,6 @@ class AdminController extends BaseController {
                 }
             }
             $user->hasErrors()?$this->ajaxResponse(-1,$user->errors):$this->ajaxResponse();
-            if ($user->hasErrors()) {
-                $return['code'] = -1;
-                $return['message'] = '<p style="color:red;">添加失败</p>';
-                foreach ($user->errors as $item) {
-                    foreach ($item as $one)
-                        $return['message'] .= '<p>' . $one . '</p>';
-                }
-            }
-            die(json_encode($return));
         }
         $roles = Role::model()->getRoles();
         $this->renderPartial('add', array('user' => $user, 'roles' => $roles));
@@ -89,12 +78,10 @@ class AdminController extends BaseController {
         $uid = $_GET['uid'];
         $user = User::model()->findByPk($uid);
         $user->setScenario('edit');
-
         if (isset($_POST['User'])) {
-            $return = array('code' => 1, 'message' => '修改成功');
-
-            if (isset($_POST['User']['email']))
+            if (isset($_POST['User']['email'])){
                 unset($_POST['User']['email']);
+            }
             $user->attributes = $_POST['User'];
             if ($user->validate()) {
                 if ($_POST['User']['password_first'])
@@ -103,17 +90,8 @@ class AdminController extends BaseController {
                     Yii::app()->oplog->add(); //添加日志
                 }
             }
-            if ($user->hasErrors()) {
-                $return['code'] = -1;
-                $return['message'] = '<p style="color:red;">修改失败</p>';
-                foreach ($user->errors as $item) {
-                    foreach ($item as $one)
-                        $return['message'] .= '<p>' . $one . '</p>';
-                }
-            }
-            die(json_encode($return));
+            $user->hasErrors()?$this->ajaxResponse(-1,$user->errors):$this->ajaxResponse();
         }
-
         $roles = Role::model()->getRoles();
         $this->renderPartial('edit', array('user' => $user, 'roles' => $roles));
     }

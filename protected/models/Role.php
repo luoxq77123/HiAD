@@ -19,7 +19,6 @@ class Role extends CActiveRecord {
     
     public function getRoles(){
         $cache_name = md5('model_Role_getRoles');
-
         $roleList = Yii::app()->memcache->get($cache_name);
         if (!$roleList) {
             $roleList = array();

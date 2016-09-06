@@ -59,8 +59,10 @@ class BaseController extends CController {
         else {
             $return['code'] = -1;
             $return['message'] = '<p style="color:red;">添加失败</p>';
-            foreach ($data as $one) {
-                $return['message'] .= '<p>' . $one . '</p>';
+            foreach ($data as $item) {
+                foreach ($item as $one){
+                    $return['message'] .= '<p>' . $one . '</p>';
+                }
             }
         }
         die(json_encode($return));

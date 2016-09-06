@@ -60,6 +60,7 @@ class User extends CActiveRecord {
         return md5(md5($password) . $salt);
     }
 
+    //生成干扰码
     public function generateSalt() {
         $str = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $len = strlen($str) - 1;
