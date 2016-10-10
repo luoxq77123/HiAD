@@ -14,10 +14,10 @@
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/manhua_hoverTips.css" rel="stylesheet" type="text/css" />
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/uploadify/swfobject.js" type="text/javascript"></script>
-        <!-- bsp导航插件 -->
+        <!--bsp导航插件-->
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/bspnav/js/loginplugin.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/bspnav/css/newbase.css">
-        <!-- bsp导航插件 -->
+        <!--bsp导航插件-->
     </head>
     <body onLoad="ReSet()" onResize="ReSet()" style="background:#eee; width:100%;">
         <!--头部-->
@@ -217,10 +217,10 @@
             }
         </script>
         <script>
-<?php if(0){?>
-$S.bspMenuPlugin({userName: '<?php echo 'yanshi@sobey.com';?>',contextPath:'http://user.vms.sobeycache.com:8080/bsp' ,appName: '<?php echo 'HIAD';?>', appid: '<?php echo 31;?>', menuid: '<?php echo isset($_GET['menuId'])?$_GET['menuId']:1;?>'});
-$("#menuWrapper").css("top",'0');
-<?php }?>
-</script>
+            <?php if(0){?>
+                $S.bspMenuPlugin({userName: '<?php echo 'yanshi@sobey.com';?>',contextPath:'http://user.vms.sobeycache.com:8080/bsp' ,appName: '<?php echo 'HIAD';?>', appid: '<?php echo 31;?>', menuid: '<?php echo isset($_GET['menuId'])?$_GET['menuId']:1;?>'});
+                $("#menuWrapper").css("top",'0');
+            <?php }?>
+        </script>
     </body>
 </html>

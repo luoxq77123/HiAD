@@ -89,6 +89,7 @@
 </div>
 <div class="pl_30 adbox">
     <!--page-->
+
     <?php
     $this->widget('HmLinkPager',array(
         'header'=>'',
@@ -106,7 +107,7 @@
     ?>
     <!--end page-->
     <!--page info-->
-    <?php $this->widget('PageResize', array('pages' => $pages, 'refreshArea' => 'ggw_box')); ?>  
+    <?php $this->widget('PageResize', array('pages' => $pages, 'refreshArea' => 'ggw_box')); ?>
     <!--end page info-->
 </div>
 

@@ -607,8 +607,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
     function addPicWrapper(video_url, video_host, video_code) {
         $("#playerCodeList").val(video_code);
-        var tr = '\
-                     <tr class="pic_option">\
+        var tr = '<tr class="pic_option">\
                          <td>\
                              <table>\
                                  <tr>\

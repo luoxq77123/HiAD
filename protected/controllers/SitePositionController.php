@@ -61,7 +61,6 @@ class SitePositionController extends BaseController {
                         $return['message'] .= '<p>' . $one . '</p>';
                 }
             }
-
             die(json_encode($return));
         }
 
